@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Create disk image
+sudo dd if=/dev/zero of=testdisk1 bs=1024 count=4096
+sudo mke2fs -b 1024 -I 128 testdisk1 4096    # INODE size=256 bytes 
+
+# Mount disk image
+sudo mount testdisk1 /mnt
+
+# Create directories and files
+(cd /mnt; sudo rmdir lost+found; sudo mkdir dir1 dir2;
+                                 sudo mkdir dir1/dir3 dir2/dir4;
+                                 sudo touch file1 file2 test)
+
+# Add text to test file
+sudo sh -c "echo 'this is a tiny file' > /mnt/test"
+sudo sh -c "echo 'with only a few lines of text' >> /mnt/test"
+sudo sh -c "echo 'happy testing' >> /mnt/test"
+
+# Unmount disk image
+sudo umount /mnt
+
+# Display disk image contents
+sudo fdisk -l testdisk1

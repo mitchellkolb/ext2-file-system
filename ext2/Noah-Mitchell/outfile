@@ -1,0 +1,3351 @@
+Script started on 2023-04-17 13:49:41-07:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="93" LINES="35"]
+[?2004h]0;root@SL510: ~root@SL510:~# cd 360/sp23/proj/level2
+[?2004l[?2004h]0;root@SL510: ~/360/sp23/proj/level2root@SL510:~/360/sp23/proj/level2# a.out
+[?2004ldiskimage = disk2 dev = 3
+check: superblock magic = 0xef53 OK
+ninodes=1024  nblocks=4096 inode_sise=256
+bmap=18  imap=19  iblk=20
+mount root
+creating P1 as running process
+root shareCount=2
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : ls
+cmd=ls pathname= parameter=
+ls ./
+i_block[0] = 276
+drwxr-xr-x   2   0   0  Apr 13 09:59:55 2023    1024    .	[3 2]
+drwxr-xr-x   2   0   0  Apr 13 09:59:55 2023    1024    ..	[3 2]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023       0    file1	[3 12]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023  442398    huge	[3 13]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023  102423    large	[3 14]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023    3297    small	[3 15]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023     104    tiny	[3 16]
+******************************************************
+after ls : cwd = [3 2]
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : cat tiny
+cmd=cat pathname=tiny parameter=
+=================================
+this is a tiny file
+with only a few lines of text
+happy testing
+
+=========  END OF tiny FILE ==========
+cat 104 bytes
+
+===============================
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : cat small
+cmd=cat pathname=small parameter=
+=================================
+                   LAB2 Check List
+
+Use YOUR C program source file in the tests.
+
+// Simple commands
+ls -a -l                       : show the ls results of CWD
+cat file                       : show file contents
+
+// Choose gedit OR nano OR vi OR emacs as the EDITOR
+EDITOR file                    : show you can edit the file
+
+// I/O redirections		   
+cat file > out; ls -l; cat out : show out file exist and show its contents
+cat file >> out; ls -l         : show out file size doubled
+cat < file                     : show file contents
+
+// PIPES
+cat file | grep printf         : show lines containing printf
+
+cat < file | grep printf > out : show pipe with I/O redirection
+
+cat file | grep printf | more  : two pipes
+      
+cat file | cat | cat | grep printf : multiple pipes
+<html>
+<body>
+<pre>
+                    LAB2pre Check List
+
+1. Outputs show executions of the commands?____________________ %80
+
+ P1: fork    ==> show P1 childList as P2, which is in readyQueue
+     switch  ==> switch to run P2
+		  
+ P2: fork; fork; ==> show P2 childList as P3->P4, which are in readyQueue
+     exit        ==> P2 become a ZOMBIE => switch to P1
+
+ P1:                 show P1 childList as P2->P3->P4
+ P1: wait        ==> find ZOMBIE P2 and put it into freeList
+     wait        ==> P1 should sleep in wait(), until a child becomes ZOMBIE
+                    (P1 sleeps, not runable, so switch to P3)
+		  
+ P3: exit        ==> wakeup P1, which will FREE the ZOMBIE P3.
+
+2. Used function pointers to invoke commands? _______________  %20
+
+                  CS360 LAB #2 Pre-Work
+                 DUE: 1-30-2020 in class
+
+1. Copy/paste/RUN Example programs C2.1 to C2.4 in textbook: NO NEED TO TURN IN
+
+2. Download files from ~samples/LAB2pre/:
+  (1). type.h, queue.c, t.c, wait.c, s.s
+                        
+  (2). gcc -m32 t.c s.s  # NOTE: must use -m32 to generate 32-bit code
+
+  (3). Run a.out as demonstrated in class
+
+
+============================== REQUIREMENTS ===========================
+3. Programming Assignment in 3.6:
+
+(1). Modify kfork() to implement the process tree as a BINARY tree.
+
+(2). Implement ksleep(), kwakeup() for process synchronization
+
+(3). Modify kexit() per algorithm in 3.5.1.
+     When a proc exits, give away children, if any, to P1.
+
+(4). Implement kwait() as in 3.5.3.
+
+(5). Add a "wait" command to allow (running) proc to wait for a ZOMBIE child
+
+(6). Use function pointers to invoke command executions
+	       
+=========================================================================
+              Turn in a hardcopy of your work. 
+
+ Run the command sequence: Use a script file to record YOUR outputs
+	       
+ P1: fork    ==> show P1 childList as P2, which is in readyQueue
+     switch  ==> switch to run P2
+		  
+ P2: fork; fork; ==> show P2 childList as P3->P4, which are in readyQueue
+     exit        ==> P2 become a ZOMBIE => switch to P1
+
+ P1:                 show P1 childList as P2->P3->P4
+ P1: wait        ==> find ZOMBIE P2 and put it into freeList
+     wait        ==> P1 should sleep in wait(), until a child becomes ZOMBIE
+                    (P1 sleeps, not runable, so switch to P3)
+		  
+ P3: exit        ==> wakeup P1, which will FREE the ZOMBIE P3.
+
+sample solution: ~samples/LAB2pre/solution	       
+
+========== END OF small FILE =============
+cat 3297 bytes
+
+===============================
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : cat large
+cmd=cat pathname=large parameter=
+=================================
+<html>
+<body>
+<pre>
+                  Project Read/Write HELP
+                      
+Double Indirect Blocks: lbk >= 12 + 256 = 268
+
+            ---------------------------------------------------------------   
+i_block[13]=|    D0       |    D1      |    D2      | . . .    |   D255   |
+            ---------------------------------------------------------------
+            |             |            |                       |          |
+lbk         |             |            |
+------------|----256------|----256 ----|----256-----|----------|---256-----
+|0|1|.......|268|269|.....|            |    blk     | . . .    |          |
+---------------------------------------|-----|------|----------------------
+                                      lbk    |
+                                       |     |
+lbk -= (12+256); // lbk count from 0   |     |
+		                       |     |
+lbk / 256 ===========================>==     |
+		                             |
+lbk % 256 ---------------------------------->-
+
+
+1. get i_block[13] into int buf13[256];  // buf13[ ] = |D0|D1|D2| ...... |
+
+2. dblk = buf13[lbk/256];
+
+3. get dblk into int dbuf[256];          // dbuf[  ] = |256 block numbers|
+					    
+4. blk = dbuf[lbk % 256];
+<html>
+<body>
+<pre>
+
+CS360 EXAM   NAME________________________________ ID ________________________
+
+         NOTE!!!! WRITE YOUR ANASERS IN THE SPACE PROVIDED ONLY.
+
+1. Assume: char buf[512] contains 4 partitions P1, P2, P3, P4, which begin at
+   the byte offset 0x1BE. Each partition is a
+
+       struct partition{ char dummy[8]; int start_sector, nr_sectors; };
+
+(1). Define a partition POINTER and let it point at P3 in buf[] ________________
+
+(2). Print the start_sector of P3: ___________________________________________
+
+2. YOU wrote a myprintf() function before. Consider the following C program:
+
+  --------------------------------------------------------------------------
+   int f, g = 123; char *s="string";|   // YOUR myprintf function
+   int main(int argc, char *argv[]) |   int myprintf(                      )
+   { int a = 1, b = 2;              |   { char *cp;  int *ip;
+     myprintf("%d %d %s",a,b,s);    |   HERE: 
+   }                                |   }
+  ---------------------------------------------------------------------------
+(1). YOUR myprintf() function head is incomplete. Make it complete.
+
+(2). Which of the variables f,g,s,a,b,cp,ip are in a.out file?____ WHY?_________
+
+(3). Execution is at the label HERE: Draw a diagram to show the stack contents
+  from HERE to argv of main(). Also, show the STACK FRAME pointer of myprintf()
+  
+
+     
+
+(4). While at HERE, how to tell CPU where is the local variable cp?_________
+                                    where is the parameter a? ______________
+
+3.(1). Write C statements to define a node structure with the following items:
+----------------------------------------------- WRITE your ANSWER HERE ---------
+name   : an array of 32 chars;        |
+child  : pointer to first child node; |
+sibling: pointer to next sibling node;|
+--------------------------------------|
+      Then, define node POINTERS p, q : ___________________________________
+
+(2). Redraw the general tree shown as a BINARY tree by child, sibling pointers
+         A                        | 
+                                  |
+     B   C   D (child of A)       |
+                                  |
+       E   F   (child of C)       |
+
+(3). Assume: p points at a node X in a BINARY tree, q points at a new node.
+     Write C code to add q as a child of X.
+
+
+
+(4). Write C code to print the names of all child nodes of X.
+
+
+4. Assume YOUR sh of LAB2: gets(line); got a command line = CMD a b c > outfile
+(1). Write code to fork a child; parent wait for child to die; then repeat gets;
+
+
+------------------------------ child ------------------------------------------
+(2). Write C code to divide the command line in char line[ ] into token strings
+
+
+(3). Write C code to do > outfile______________________________________________
+
+(4). Assume the CMD file is in the /bin directory. Write C code to execute CMD,
+     passing myargv[], env[] as parameters ___________________________________
+
+     For the command line = CMD a b c > outfile, show EXACLY what is myargv[]
+
+(5). Assume command line = cat file | grep print 
+     Wrtie C code to handle the pipe symbol |  ________________________
+            
+
+
+
+
+
+
+
+5. For the following code segments, write C code for questions (1) and (2).
+
+     int total = 0;  pthread_mutex m; // an intitlaized mutex
+     void *func(void *arg){    |     // Write code here for (3) 
+   F1:    total += (int)arg;   |
+   F2:    pthread_exit(arg);   |
+     }
+     int main()
+     {     pthread_t tid[4];   int status;
+     ------------------Write CODE for main thread -----------------------------
+(1).   Create 4 threads to execute func(), each with a unique arg value 1 to 4.
+
+(2).   Wait for all 4 threads to JOIN : ___________________________________
+     }
+
+(3). Which statement in func() is a Critical Region? ____ WHY?_________________
+     Write code to protect the Critical Region =========> in space shown above
+
+(4). In PARALLEL Gauss and LU programs, threads use BARRIERs to synchronize.
+     What's the difference between threads wait at a barrier and threads JOIN?
+YOUR ANSWER:__________________________________________________________________
+
+(5). In Producer-Consumer Problem, threads use what?_______________ to cooperate
+
+6. To solve linear equaltions A*X = B, LU decomposition converts A to A = L*U.
+(1). What kind matrix is L?____________________________________________________
+     How to solve for Y in L*Y = B?____________________________________________
+
+(2). What kind matrix is U?____________________________________________________
+     How to solve for X in U*X = Y?____________________________________________
+
+(3). LC decomposition is better than Gauss elimination, WHY?________________
+
+
+7. The following functions copy file src to dest, return total # bytes copied
+
+    #define BLK 4096    (Linux file system block size)
+
+int mycp(char *src, char *dest)   | int YOURcp(char *src, char *dest)
+{ int n, total=0; char buf[BLK];  | { int n, total=0; char buf[BLK];
+ ___ fd = open(src, __________);  |  ____ fp = fopen(src,  _____); // for READ
+ ___ gd = open(dest,__________);  |  ____ gp = fopen(dest, _____); // for WRITE
+                             
+
+
+				     
+}                                 | } 
+
+(1). Fill in the blanks in the above code lines.
+(2). What's the RELATIONSHIP between fopen() and open()?______________________
+(3). Write C code to complete the mycp() function in the SPACE shown above.
+(4). Even if someone completes YOURcp(), mycp() is better than YOURcp().
+     WHY?______________________________________________________________________
+
+8. Given: struct stat mystat; // mystat contains u16 st_mode, u32 st_ctime
+(1). Write code to get file information of "myfile": ___________________________
+
+(2). Write code to test whether myfile is a DIR : _____________________________
+
+(3). If st_ctime = 123456789, what does the value mean?_________________________
+     Print myfile's st_ctime in CALDENDAR form _________________________________
+(4). Given: DIR *dp; struct dirent *ep;  opendir(), readdir();
+     Write code to print all file names in the Current Directory:
+
+
+
+
+9. TCP/IP Network Programming and CGI:   Assume LAB4-preWork
+(1). A TCP server received a line with 3 intgers      a b c from a client by
+           char line[256];   read(client_sock, line, 256);
+Write code for the server to reply a line containing: a b c SUM=a+b+c (value)
+
+
+(2). The TCP server can only serve ONE client at a time.
+     EXPLAIN: how to modify it to serve multiple clients at the same time?
+     
+
+(3). When access the website at SERVER_URL=http://cs360.eecs.wsu.edu/~YOURNAME,
+     YOUR webpage is the default HTML file DIR/filename=_______________/________
+
+     The default HTML file contains a HTML FORM:
+     &lt;FORM METHOD="POST" ACTION="SERVER_URL/cgi-bin/mycgi.bin"> 
+           Entries for user inputs
+	   SUBMIT button 
+     &lt;/FORM>
+When SUBMIT, it sends user inputs to execute a CGI program at the webserver.
+
+(4). How does the POST method send user inputs?________________________________
+     YOUR CGI program is the file DIR/filename = ___________________/__________ 
+     
+(5). YOUR CGI program is executed at the webserver by a process with uid=?______
+     The process is NOT yours but it can write in YOUR directory. WHY?
+
+(6). YOUR CGI C program has a  printf("Content-type: text/html\n\n"); statement
+     What's the puspose of this statement?______________________________________
+     EXPLAIN: How does YOUR CGI program generate DYNAMIC webpages:
+     
+     
+     
+<TITLE>CS360</TITLE>
+
+<BODY bgcolor="#00CCCC" TEXT="#000000" LINK="#990000" VLINK="#0000FF" ALINK="#33
+00FF"> 
+
+<H1>CS360 CLASS NOTES</H1>
+<H2>
+
+<p>
+<img src="redball.gif" alt ="*">
+<A HREF="plansp20.html">Course Plan : Spring, 2020</a>
+<!------------ comment line ---------------------------->
+
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="ch1.pdf">Notes #1: Introduction to Unix/Linux and MTX</a>
+<P>
+READing list: 1.8, 1.9, 1.15
+<P>
+<img src="redball.gif" alt = "*">
+Notes #2: Programming Background: Chapter 2 of Textbook
+<P>
+READing List: 2.3, 2.4, 2.5, 2.8, 2.9, 2.10, 2.13
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="pre1.html">LAB#1 Pre-work DUE 1-21-2020 in class</a>
+<P>
+ 
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB1.html">LAB Assignment #1 DUE 1-23-2020</a>
+<P>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB1checklist.html">LAB #1 Checklist</a>
+<P>
+
+READING List: Chapter 3 of textbook
+
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB2pre.html">LAB #2 Pre-Work DUE:1-30-2020 in class</a>
+<P>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB2preCheck.html">LAB #2 Pre-Work Check List</a>
+<P>
+
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB2sp20.html">LAB #2 DUE:2-6-2020 DEMO to TA</a>
+<P>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB2check.html">LAB #2 Check List</a>
+<P>
+  READING List: Chapter 4: 4.1 to 4.6 of textbook:
+<P>
+  threads creation, threads ID, threads exit, threads join
+<P>
+  threads synchronization: mutex_lock, deadlock prevention,
+                condition variables, barriers
+<P>
+  ADVANCED TOPIC: 4.7: Implementation of User-level threads
+<P>
+  READING List: Chapter 5: 5.1 to 5.6 of textbook:
+<P>
+  Hardware Timers and Interrupt processing
+<P>
+  Timer service functions: gettimeofday, time, times, interval timer
+<P>
+  User level time commands: time, date
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB3pre.html">LAB #3 Pre-Work: DUE:2-13-2020 in class</a>
+<P>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB3.html">LAB #3 DUE:2-20-2020 DEMO</a>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB3check.html">LAB #3 Check List</a>
+<P>
+  <H1><font color="red">Midterm Exam date : Thursday, Feb-27-2020</font></H1>
+  <H2>
+<P>READING List: Chapter 7 File Operations: 7.1-7.2 only (others will be later)
+<P>READING List: Chapter 8 System Calls for File Operations: ALL
+<P>READING List: Chapter 9 Library I/O Functions: ALL
+<P>READING List: Chapter 13 Network Programming: ALL
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB4pre.html">LAB #4 Pre-WORK</a>
+<P>  
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB4preCheck.html">LAB #4 Pre-WORK check list</a>
+<P>  
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="review.html">Review for EXAM</a>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB4.tcp.html">LAB #4: TCP Programming DUE March 5 2020</a>
+<P>  
+<P>
+<h2> Sh Programming : Chapter 10 of textbook</h2>
+<h2>
+<A HREF="stats.png"> Distribution of Midterm Exam Scores</a>
+<p>
+<p>
+    
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="LAB4check.html">LAB #4 Check List</a>
+<P>  
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="proj20.html">Project Specification</a>
+<P>  
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="mountroot.html">Project Start: mount_root</a>
+<P>
+  <h2>Level-1 Functions: samples/LEVEL1</h2>
+  <h2>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="mkdir_creat.html">HOW TO mkdir_creat</a>
+<P>  
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="rmdir.html">HOW TO rmdir</a>
+
+<P>3-26 ZOOM recording:
+<h4>https://wsu.zoom.us/rec/share/xI8yFZrW80hLfoXi9B_zU5ADAYnqaaa82nVIq_VZmElqrCc_xkU7C5G3mV_mT1Ga</h4>
+<P>  
+<H2>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="link_unlink.html">HOW TO link_unlink_symlink</a>
+<P>  
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="misc1.html">Misc Level-1 Functions</a>
+
+
+<H2><font color="red">Level-1 DUE and DEMO: 4-9-2020
+
+Leve-1 Requirements: mkdir, rmdir, link, unlink, symlink
+Turn in your Level-1 zip file to TA
+<P>
+SCP your zip file to YOURNAME@cs360.eecs.wsu.edu:public_html/LEVEL-1/ directory</font>
+
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="level-1.demo.html">Level-1 DEMO Instructions</a>
+<P>  
+<P> 
+
+<P>
+  <h2>Level-2 Functions: samples/LEVEL2</h2>
+<H2>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="open_close.html">HOW TO open_close_lseek</a>
+<p>
+<H4>3-31 class recording:
+<P>
+https://wsu.zoom.us/rec/share/usFRJu_e7UVORKvn4U-OW58BQLS1T6a81ydMrPQInR27uLHAj5bVZcVwpHzryEca
+<p>
+    
+4-2-2020 recording:
+<P>
+https://wsu.zoom.us/rec/share/xOVLArqz9DpJTKfKzlCcSKt8Jdrlaaa8hCVP-fRcxB7H24WHGrOnqYz-3BKbtF-G
+<P>
+  
+4-9-2020 recording:
+https://wsu.zoom.us/rec/share/w51XKZ-z6kVOG42S4WXgUIsAEJ-iT6a8gyNI_fdbyE2UlgJfmDUBKcwZycQwSIgM
+<P>
+ 
+4-14 recording:
+https://wsu.zoom.us/rec/share/5O1wMLrc8z1OQa-Qr0XmSLYRLtzOeaa81SRK-aAKmEt-1thGxtbKQCcRd1m1_z5M
+ 
+
+</h4>
+<H2>
+<P>  
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="read_ext2.html">HOW TO read_cat</a>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="dblk.html">Project HELP: Double-Indirect Blocks</a>
+<P>  
+<img src="redball.gif" alt = "*">
+<A HREF="write_ext2.html">HOW TO write_cp</a>
+<P>
+  <h2>Level-3 Functions</h2>
+  <h2>
+<P>
+<img src="redball.gif" alt = "*">
+<A HREF="mount_umount.html">HOW TO mount_umount</a>
+<P>  
+
+<html>
+<body>
+<pre>
+                   LAB2 Check List
+
+Use YOUR C program source file in the tests.
+
+// Simple commands
+ls -a -l                       : show the ls results of CWD
+cat file                       : show file contents
+
+// Choose gedit OR nano OR vi OR emacs as the EDITOR
+EDITOR file                    : show you can edit the file
+
+// I/O redirections		   
+cat file > out; ls -l; cat out : show out file exist and show its contents
+cat file >> out; ls -l         : show out file size doubled
+cat < file                     : show file contents
+
+// PIPES
+cat file | grep printf         : show lines containing printf
+
+cat < file | grep printf > out : show pipe with I/O redirection
+
+cat file | grep printf | more  : two pipes
+      
+cat file | cat | cat | grep printf : multiple pipes
+<html>
+<body>
+<pre>
+                    LAB2pre Check List
+
+1. Outputs show executions of the commands?____________________ %80
+
+ P1: fork    ==> show P1 childList as P2, which is in readyQueue
+     switch  ==> switch to run P2
+		  
+ P2: fork; fork; ==> show P2 childList as P3->P4, which are in readyQueue
+     exit        ==> P2 become a ZOMBIE => switch to P1
+
+ P1:                 show P1 childList as P2->P3->P4
+ P1: wait        ==> find ZOMBIE P2 and put it into freeList
+     wait        ==> P1 should sleep in wait(), until a child becomes ZOMBIE
+                    (P1 sleeps, not runable, so switch to P3)
+		  
+ P3: exit        ==> wakeup P1, which will FREE the ZOMBIE P3.
+
+2. Used function pointers to invoke commands? _______________  %20
+<html>
+<body>
+<pre>
+                  CS360 LAB #2 Pre-Work
+                 DUE: 1-30-2020 in class
+
+1. Copy/paste/RUN Example programs C2.1 to C2.4 in textbook: NO NEED TO TURN IN
+
+2. Download files from ~samples/LAB2pre/:
+  (1). type.h, queue.c, t.c, wait.c, s.s
+                        
+  (2). gcc -m32 t.c s.s  # NOTE: must use -m32 to generate 32-bit code
+
+  (3). Run a.out as demonstrated in class
+
+
+============================== REQUIREMENTS ===========================
+3. Programming Assignment in 3.6:
+
+(1). Modify kfork() to implement the process tree as a BINARY tree.
+
+(2). Implement ksleep(), kwakeup() for process synchronization
+
+(3). Modify kexit() per algorithm in 3.5.1.
+     When a proc exits, give away children, if any, to P1.
+
+(4). Implement kwait() as in 3.5.3.
+
+(5). Add a "wait" command to allow (running) proc to wait for a ZOMBIE child
+
+(6). Use function pointers to invoke command executions
+	       
+=========================================================================
+              Turn in a hardcopy of your work. 
+
+ Run the command sequence: Use a script file to record YOUR outputs
+	       
+ P1: fork    ==> show P1 childList as P2, which is in readyQueue
+     switch  ==> switch to run P2
+		  
+ P2: fork; fork; ==> show P2 childList as P3->P4, which are in readyQueue
+     exit        ==> P2 become a ZOMBIE => switch to P1
+
+ P1:                 show P1 childList as P2->P3->P4
+ P1: wait        ==> find ZOMBIE P2 and put it into freeList
+     wait        ==> P1 should sleep in wait(), until a child becomes ZOMBIE
+                    (P1 sleeps, not runable, so switch to P3)
+		  
+ P3: exit        ==> wakeup P1, which will FREE the ZOMBIE P3.
+
+sample solution: ~samples/LAB2pre/solution	       
+
+
+
+
+<html>
+<body>
+<pre>
+                     CS360 LAB3 Check List
+		  
+1. Run modified C4.5.c program with NTHREAD=2,4: Correct Solution?_____________
+
+2. Run parallel LU decomposition program: Correct Solution?____________________
+<html>
+<body>
+<pre>
+                CS360 LAB Assignment #3
+                 DUE & DEM: 2-20-2020
+
+          Turn in a hard copy of your code with outputs
+		
+1. Download ~samples/LAB3/c4.5.c
+   It solves a system of N linear equations with N threads.
+		
+   Modify it to do Problem 4.5 in the Problems Section of textbook:
+     Input a NTHREADS nmumber, which may be 2,4 or any number<=N
+									      
+		
+2. Download ~samples/LAB3/lu.c
+   It solves a system of linear equations by LU decomposition
+								
+===== Solve system of linear equations by LU decomposition =====
+
+(1). Theory:
+      A*X = B
+can be solved by decomposing A into L and U, such that
+      A = L*U
+where L is a  lower triangular matrix with diagonal elements = 1,
+              and 0's above the diagnal
+      U is an upper triangular matrix with 0's below the diagonal
+
+Rewrite  A*X = B  as  L*U*X = B   OR
+                      L*Y   = B   and   U*X = Y
+
+Solve for Y by L*Y = B;  then solve for X by U*X = Y
+
+(2). If using Partial Pivoting, which may exchange rows of A, it amounts to
+     multiply L*U by a permutation matrix P, so that
+
+	   A = P*L*U   
+           A*X = B      becomes                 
+       P*L*U*X = B  OR  L*U*X = P*B  because (inverse of P) = P
+          
+The algorithm of LU decomposition with partial pivoting is shown below:
+
+#define n 8
+
+double a[n,n] = data matrix A
+double l[n,n] = lower: initialized to all 0 except L[i][i] = 1.0
+double u[n,n] = upper: initilaized to all 0
+int    p[n]   = permutation vector; initialized as [0,1,2,,,.N-1]
+								
+// these are defined as row vectors but used as COLUMN vectors in the equations
+double b[n]   = constants vector;
+double y[n]   = temporary solution vector; initialied to 0
+double x[n]   = solution  vector
+
+                       Algorithm
+================================================================
+int i,j,k;
+
+for k = 0 to n-1 do{
+    max = 0;
+    for i = k to n-1 do {
+        if max < |a(i,k)|{
+           max = |a(i,k)|;
+           j = i;
+        }
+        if max == 0
+           error (singular matrix)
+
+        swap p[k] and p[j]             // exchanged row numbers
+        swap row a(k) and row a(j)
+        swap l(k,0:k-2) and l(j,0:k-2)
+
+        u(k,k) = a(k,k)
+        for i = k+1 to n-1 do{
+           l(i,k) = a(i,k)/u(k,k)
+           u(k,i) = a(k,i)
+        }
+
+        for i = k+1 to n-1 do{
+           for j = k+1 to n-1 do{
+             a(i,j) = a(i,j) - l(i,k)*u(k,j)
+           }
+       }
+   }
+
+After getting P, L and U, solve L*Y = P*B; then U*X = Y;
+		 
+============================================================================
+
+                          REQUIREMENT:
+
+Re-write lu.c as a parallel plu.c program for N=8 using N concurrent pthreads.
+(HINT: consult program c4.5).
+
+
+
+
+
+
+
+
+<html>
+<body>
+<pre>
+                 CS360 LAB3 Pre-Work
+	        DUE: 2-13-2020 in class
+	NOTE: text-edit your answers, NO hand writings
+		 
+1. Download files from ~samples/LAB3pre/:
+                                   ||
+                           c4.2.c c4.3.c c4.4.c
+
+                    REQUIREMENTS
+		  
+(1). c4.2.c implements quciksort of an integer array by CONCURRENT THREADS
+
+     Write a SEQUENTIAL quicksort program (for the same integer array).
+
+     Run both c4.2.c AND your sequential quicksort program.
+     Compare the running time of both programs.
+
+		 
+		 
+
+(2). c4.3.c computes the sum of a matrix by CONCURRENT THREADS.
+     Each thread computes the partial sum of a row and tries to update
+     a global total by its partial sum.
+
+(2).1. Explain what's a Critical Region: __________________________
+       How to protect Critial Regions?   __________________________
+		 
+(2).2. In C4.3, each thread must use the same mutex_lock when updating total.
+       WHY?______________________________________________________________
+		 
+(2).3. Write a SEQUENTIAL program to compute the sum of the same matrix.
+       Run both c4.3.c AND your sequential program.
+       Compare the running time of both programs.
+
+		 
+		 
+(3). c4.4.c implements the producer-consumer problem using CONDITION variables.
+	    The program uses a PAIR of producer and consumer threads.
+		 
+(3).1. Explain how condition variables work ________________________________
+		 
+(3).2. Modify the main() function to generate one more producer thread.
+       Analyze the program logic to predict what would happen? _________________
+       Run the modified program to verify YOUR predication: ___________________ 
+
+(3).3. Modify the main() function to generate one more consumer thread.
+       Analyze the program logic to predict what would happen? ________________
+       Run the modified program to verify YOUR predication: ____________________
+
+		 
+<html>
+<body>
+<pre>
+                 CS360 LAB4 pre-work Check List
+               PART 2 ONLY: TA will check online
+----------------------------------------------------------------------
+1. Changed picture?                     %10
+
+2. mkdir work?                          %10
+
+3. ls work?                             %30   
+
+4. cat file work?                       %20
+
+5. cp file1 file2 work?                 %30
+----------------------------------------------------------------------
+                                        100<html>
+<body bgcolor="#00CCCC" text="#000000">
+<pre>
+                   CS360 LAB4 Pre-WORK
+               DUE: PART 1: 2-18-2020 in class
+               Turn in a hardcopy of your code
+
+PART 1 : Network Programming using TCP
+
+Download files from samples/LAB4pre/ :  server.c   client.c
+The programs are EXPLAINED and demonstrated in class
+
+Modify client.c to send a line containing two numbers, e.g. 123 456
+Modify server.c to compute the SUM of the numbers and reply 123 456 sum=579
+============================================================================
+
+
+		   PART 2: Web Programming
+
+              DUE: Saturday Midnight 2-22-2020
+		  
+    TA will check YOUR web page to verify the requirements
+
+1. YOUR WEBSITE at cs360.eecs.wsu.edu
+   Each of you has a user account on the Linux machine cs360.eecs.wsu.edu
+        login name = YOUR last name     (lower case only)
+        password   = YOUR WSU ID number (no leading 0)
+
+2. Access YOUR website by
+
+        http://cs360.eecs.wsu.edu/~YOURNAME
+       
+        ------------------------------------
+        |    Welcome to YOUR Website       |
+        |       ------------------         |
+        |       | YOUR PICTURE   |         |
+        |       ------------------         |
+        | Input command  :  BOX            | 
+        | Input filename1:  BOX            |
+        | Input filename2:  BOX            | 
+        | Submit command :  Submit BOX     |
+        ------------------------------------
+
+3. You will NOT like your current picture. Change it.
+   In order to let us know you better, please use your OWN (.gif) picture
+		   
+4. When you click the Submit BOX, it submits the strings you entered to the
+   httpd (Apache) server on the cs360.eecs.wsu.edu machine, directing it to 
+   execute
+             ~kcw/cgi-bin/mycgi.bin 
+ 
+   which echos YOUR inputs and shows another input-submit window again.
+
+5. login to your account. As of now, YOUR home directory contains:
+ 
+        public_html --- index.html 
+               |
+            cgi-bin ---- mycgi.c util.o
+
+5-1. Modify YOUR public_html/index.html file: CHANGE the line
+
+< FORM METHOD="POST" ACTION="http://cs360.eecs.wsu.edu/~kcw/cgi-bin/mycgi.bin" >
+
+TO
+
+< FORM METHOD="POST" ACTION="http://cs360.eecs.wsu.edu/~YOURNAME/cgi-bin/mycgi.bin" >
+
+5-2. Go to YOUR cgi-bin/ directory. Change the line in mycgi.c file
+
+ printf("&lt;FORM METHOD=\"POST\" ACTION=\"http://cs360.eecs.wsu.edu/~kcw/cgi-bin/mycgi.bin\">"); 
+
+TO
+
+ printf("&lt;FORM METHOD=\"POST\" ACTION=\"http://cs360.eecs.wsu.edu/~YOURNAME/cgi-bin/mycgi.bin\">");
+
+Then run
+     cc -o mycgi.bin mycgi.c util.o   # generate YOUR OWN mycgi executable.
+     chmod u+s mycgi.bin              # chmod mycgi to a SETUID executable
+
+6. Access YOUR webpage again. Enter command and filenames. Then, Submit.
+   It should execute YOUR mycgi program in YOUR cgi-bin/ directory.
+
+
+<h2>======================= REQUIREMENTS ===============================</H2>
+
+1. login to your account by
+
+            ssh YOURNAME@cs360.eecs.wsu.edu
+            Change YOUR current ugly picture to YOUR pretty picture.
+
+NOTE: in order for us to know you better, please use a REAL picture of you.
+
+2. MODIFY mycgi.c to do the following commands:
+
+     mkdir dirname      // mkdir syscall
+     rmdir dirname      // rmdir syscall
+     rm    filename     // unlink syscall
+     cat   filename     // cat in textbook
+     cp    file1 file2  // cp  in textbook
+     ls    [directory] <== if no directory, ls CWD // ls code in textbook
+ 
+NOTE: YOUR mycgi.bin program is executed by an Apache process (uid=80). 
+In order for the Apache process to write to YOUR directories, you MUST change 
+YOUR mycgi.bin to a setuid program by
+                    chmod u+s mycgi
+When a process executes a setuid program, it temporarily assumes the uid of the
+program owner, allowing it to write to the owner's directories.
+
+			   HAVE FUN !!
+		   
+<html>
+<Body bgcolor="#00cccc" text="#000000">
+<pre>
+
+     CS360 Lab Assignment #4 : File Operations across Networks
+               
+                     MAY WORK IN 2-PERSON TEAMS
+                       DUE & DENO : 3-5-2020
+
+              READ Chapter 13.17 Programming Project 1
+     
+A. OBJECTIVES:
+   Network Programming using TCP.
+   Unix system calls for file operations.
+
+B. TCP/IP Programs: 
+   Download samples/LAB4pre/server.c client.c files, which are the base code
+     
+C. REQUIREMENTS:
+   Modify the server.c/client.c programs to do the following:
+
+     Client : input a command:
+              ----------------  
+              pwd
+              ls   [pathname]
+              cd    pathname
+              mkdir pathname
+              rmdir pathname       
+              rm    pathname       (rm pathname)
+              get   pathname       (cp pathname to client side)
+              put   pathname       (cp pathanme to server side)
+              quit                 (Client exits)
+           -----------------
+           send command to Server.
+           receive reply AND results from Server. Display the results
+
+     Also, implement (local) commands
+           lcat lpwd, lls, lcd, lmkdir. lrmdir, lrm
+     which the Client executes LOCALLY.
+
+     Server: loop:
+            get a command from Client;
+            perform the command;
+            send reply to Client;
+            repeat;    
+    *************************************************************
+    *  OUTPUTS REQUIREMENTS: CONSULT THE POSTED SAMPLE SOLUTION *
+    *************************************************************
+
+C. HELP Hints:
+
+(1). Make each command a fixed-length string, e.g. of MAX=256 bytes.
+     REASON: a TCP socket contains a "stream" of data. Each read operation
+             reads whatever is available in the socket. Using fixed-length 
+             items simplifies reading individual command strings.
+
+(2). Assume get filname:
+
+            CLIENT                             SERVER
+   -------------------------------    -------------------------------
+  send request (get filename)  ====>  stat filename to get type AND SIZE  
+  wait for reply               <===   send SIZE=xxxx or BAD 
+  if (BAD): next input;               if (BAD): next command
+  ====================================================================
+  count = 0;                         
+  open filename for WRITE             open filename for READ
+  while(count < SIZE){                while(n=read(fd, buf, MAX)){
+     n = read(socket,buf,MAX); <=====   send n bytes from buf
+     count += n;
+     write n bytes to file;
+  }                                   }      
+  close file;                         close file;
+  /*******************************************************************/
+
+(3). You figure out the algorithm for put filname
+
+(4). When server starts, set VIRTUAL root to CWD:
+
+     getcwd();       // get CWD into char curdir[ ];
+     printf("server : chroot to %s\n", curdir);
+     chroot(curdir); // change / to current DIR 
+
+(5). EXTRA CREDITS: 10 points if your server can serve MULTIPLE clients
+					
+                      Sample Solutions
+           samples/LAB4/ : server, client, multiServer
+
+<html>
+<Body bgcolor="#00cccc" text="#000000">
+<H1>CS360 Lab Assignment #2 HELP : sh Simulator</H1>
+<pre>
+                DUE & DEMO: 2-6-2020
+
+Purpose: Understand how Unix/Linux sh works by using fork/exec/wait/pipe.
+         String operations
+
+<h2>REQUIREMENTS</H2>
+   Write a C program, mysh, which simulates the Unix sh for command processing.
+   Your mysh should run as follows:
+
+------------- PART 1: Single Command with I/O Redirection ---------------
+
+1. Prompt for an input line, which is of the form
+          cmd arg1 arg2 arg3 .... argn 
+   where cmd is a command.
+
+   Valid commands include "cd", "exit", and ANY Unix binary executables, 
+   e.g. echo, ls, date, pwd, cat, cp, mv, cc, vi, emacs, ... you name it !!!
+
+
+2. Handle simple commands:
+     cmd = "cd"   :  chdir(arg1) OR chdir($HOME) if no arg1;
+     cmd = "exit" :  exit(1) to terminate;  
+
+   NOTE: chdir(pathname) is a syscall to change CWD.
+         $HOME is the home directory; YOU must find its value from *env[ ].
+
+3. For all other commands:
+      fork a child process;
+      wait for the child to terminate;
+      print child's exit status code
+      continue step 1;
+
+4. Child process: First, assume NO pipe in command line:
+   4-1. Handle I/O redirection:
+          cmd  arg1 arg2 ...  <  infile    // take inputs from infile
+          cmd  arg1 arg2 ...  >  outfile   // send outputs to outfile
+          cmd  arg1 arg2 ...  >> outfile   // APPEND outputs to outfile
+
+   4-2. Execute cmd by execve(), passing parameters 
+                char *myargv[], char *env[]
+        to the cmd file, 
+        where myargv[ ] is an array of char * with
+
+              myargv[0]->cmd, 
+              myargv[1]->arg1,
+              .....
+              Ending with NULL pointer
+
+   4-2. NOTE: your myargv[] must be passed correctly, as in
+              cmd one two three
+        Then in the cmd program, argc=4, myargv[0]="cmd", myargv[1]="one", etc.
+
+
+------------------ PART 2: Commands with Pipes ---------------------------
+
+5. After YOUR mysh works for simple commands, extend it to handle PIPE.
+   If the command line has a | symbol:
+          divide it into head and tail: e.g.
+
+          cmd1 < infile | cmd 2 > outfile
+   
+   head = "cmd < infile";   tail = "cmd 2 > outfile"
+
+   Then consult the pipe example code in the class notes to see HOW TO 
+        create a pipe
+        fork a child process to share the pipe
+        arrange one process as the pipe writer, and
+                the other process as the pipe reader.
+        Then, let each process execve() to its command
+              (possibly with I/O redirection).
+
+6. ===================== BONUS ====================
+   If YOUR mysh can handle MULTIPLE pipes like
+
+           cat file | grep "test" | more
+           cat fle  | cat | grep "test" | more
+   etc.
+   ===============================================
+
+7. For sh scripts files:
+
+   Assume the first line of every sh script begin with
+          #! /usr/bin/bash
+   open the file for READ;
+   read 256 chars from file beginning to a char buf[256];
+   close the opened file
+
+   strncmp(buf, "#!", 2) to check whether the first 2 chars are #!;
+   if so, cmd = "/usr/bin/bash", myargv[0]="bash", argv[1]="filename";
+   Then execve(cmd, myargv, env);
+
+
+8. SAMPLE SOLUTION:
+   
+   ~samples/LABb/lab2.bin          (down load and run under Linux)
+
+
+<html>
+<body>
+<pre>
+                        HOW TO link_unlink_symlink
+			<h2>READ Chapter 11.8.6 - 11.8.9</h2>
+			
+0. POSTED test files in samples directory:
+
+   =========== Project Level-1 ==========
+   mountroot  : mount_root; ls, cd, pwd
+   mkdir_creat: mkdir, creat
+   rmdir      : rmdir
+   link_unlink: link, unlink, symlink, readlink
+   ======================================
+
+
+1. link oldFileName newFileName
+
+   creates a file newFileName which has the SAME inode (number) as that of
+   oldFileName.
+
+
+   Example: link     /a/b/c                      /x/y/z ==>
+                     /a/b/   datablock           /x/y    data block
+                 ------------------------        -------------------------
+                .. .|ino rlen nlen c|...        ....|ino rlen nlen z| ....
+                ------|-----------------        ------|------------------
+                      |                               |
+                    INODE <----------------------------
+
+                i_links_count = 1  <== INCrement i_links_count to 2
+
+
+
+(1). get the INODE of /a/b/c into memory: mip->minode[ ]
+                                               INODE of /a/b/c
+                                               dev,ino
+                                               .......
+
+(2). check /a/b/c is a REG or LNK file (link to DIR is NOT allowed).
+
+(3). check /x/y  exists and is a DIR but 'z' does not yet exist in /x/y/
+
+(4). Add an entry [ino rec_len name_len z] to the data block of /x/y/
+     This creates /x/y/z, which has the SAME ino as that of /a/b/c
+
+(NOTE: both /a/b/c and /x/y/z must be on the SAME device; 
+       link can not be across different devices).
+
+(5). increment the i_links_count of INODE by 1
+
+(6). write INODE back to disk      
+
+===========================================================================
+2.                     HOW TO unlink
+
+     unlink pathname
+
+(1). get pathname's INODE into memory
+
+(2). verify it's a FILE (REG or LNK), can not be a DIR; 
+
+(3). decrement INODE's i_links_count by 1;
+
+(4). if i_links_count == 0 ==> rm pathname by
+
+        deallocate its data blocks by:
+
+     Write a truncate(INODE) function, which deallocates ALL the data blocks
+     of INODE. This is similar to printing the data blocks of INODE.
+
+        deallocate its INODE;
+     
+(5). Remove childName = basename(pathname) from the parent directory by
+
+        rm_child(parentInodePtr, childName)
+
+     which is the SAME as that in rmdir or unlink file operations.
+
+3. ======================== HOW TO symlink ================================
+   symlink oldNAME  newNAME    e.g. symlink /a/b/c /x/y/z
+
+   ASSUME: oldNAME has <= 60 chars, inlcuding the ending NULL byte.
+
+(1). verify oldNAME exists (either a DIR or a REG file)
+(2). creat a FILE /x/y/z
+(3). change /x/y/z's type to LNK (0120000)=(1010.....)=0xA...
+(4). write the string oldNAME into the i_block[ ], which has room for 60 chars.
+    (INODE has 24 unused bytes after i_block[]. So, up to 84 bytes for oldNAME) 
+
+     set /x/y/z file size = number of chars in oldName
+
+(5). write the INODE of /x/y/z back to disk.
+  
+
+4. readlink pathname: return the contents of a symLink file
+
+(1). get INODE of pathname into a minode[ ].
+(2). check INODE is a symbolic Link file.
+(3). return its string contents in INODE.i_block[ ].
+
+<html>
+<body>
+<pre>
+            CS 360 NOTES on misc. Level-1 Functions
+
+1. stat filename: 
+        struct stat myst;
+        get INODE of filename into memory:
+            int ino = getino(pathname);
+            MINODE *mip = iget(dev, ino);
+            copy dev, ino to myst.st_dev, myst.st_ino;
+            copy mip->INODE fields to myst fields;
+        iput(mip);
+
+2. chmod filename mode: (mode = |rwx|rwx|rwx|, e.g. 0644 in octal)
+         get INODE of pathname into memroy:
+             ino = getino(pathname);
+             mip = iget(dev, ino);
+             mip->INODE.i_mode |= mode;
+         mip->dirty = 1;
+         iput(mip);
+
+3. utime filename: (Modify atime of INODE)
+
+
+4. Many other level-1 functions:
+        get INODE into memory;
+        copy OR MODIFY INODE fields;
+                set dirty flag if modified;
+        iput(mip):
+
+=================== Key Components of Level-1 =======================
+
+1. Given a DIR INODE, step through entries in its data block(s) to 
+   print all DIR entries = [inode|rec_len|name_len|name]:
+
+         INODE *ip -> INODE
+         get_block(dev, ip->i_block, buf[ ]);
+         DIR  *dp = (  )buf;
+         char *cp = buf;
+         while(cp < buf + BLKSIZE){
+            use dp-> to access entry's inode, rec_len, name_len, name;
+            // print entry or search for an entry by inode number of by name;
+          
+            cp += dp->rec_len;
+            dp = ( )cp;
+         }
+         ============================================
+         INODE *ip -> INODE
+         get_block(dev, ip->i_block, buf[ ]);
+
+         DIR  *dp = (  )buf;
+
+         while(dp < buf + BLKSIZE){
+            use dp-> to access entry's inode, rec_len, name_len, name;
+            // print entry or search for an entry by inode number of by name;
+ 
+            dp = (DIR *)( (char *)dp += dp->rec_len );
+         }
+
+ 2. int ino = getino(pathname):
+
+(1). tokenize pathname into name[0], name[1], .., name[n-1] with n pointers
+  
+(2). mip = root if pathname is absolute;
+           CWD  if pathname is relative
+ 
+(2). for (int i=0; i < n; i++){
+         ino = search(mip, name[i]);
+
+         if (!ino) return 0;
+
+         iput(mip);
+         mip = iget(dev, ino) 
+     }
+     iput(mip);
+     return mip->ino;
+
+
+===============================================================
+For LAB#6: Since INODEs are never modified, no need to iput()
+
+     for (int i=0; i < n; i++){
+         ino = search(mip, name[i]);
+         if (!ino) exit(1);
+         mip = iget(dev, ino) 
+     }
+     print INODE's block numbers
+==============================================================
+
+3. MINODE *iget(dev, ino):
+
+     return mip->minode[] containing INODE of (dev,ino)
+
+4. iput(MINODE *mip)
+ 
+     wrtie mip->INODE back to disk if refCount==0 AND dirty
+
+5. Convert ino to disk block number and offset by Mailman's algorithm
+        
+6. Enter an entry [ino, name] into the data block of a parent directory.
+
+7. Delete an entry [ino, name] from the dat block of a parent directory.
+
+
+
+
+
+
+
+
+     
+<Title>360 Notes</Title>
+<Body bgcolor="#00cccc" text="#000000">
+
+<H1>360 Project Help: HOW TO mkdir_creat</H1>
+<h2>DUE and DEMO: 3-26-2020</h2>
+<H2>Chapter 11.8.1: mkdir. 11.8.2: creat, 11.8.3</H2>
+<Pre>
+
+1. Base code: YOUR mount_root program
+
+ADD these C code:
+
+int tst_bit(char *buf, int bit)
+{
+  // in Chapter 11.3.1
+}
+
+int set_bit(char *buf, int bit)
+{
+  // in Chapter 11.3.1
+}
+
+int ialloc(int dev)  // allocate an inode number from inode_bitmap
+{
+  int  i;
+  char buf[BLKSIZE];
+
+// read inode_bitmap block
+  get_block(dev, imap, buf);
+
+  for (i=0; i < ninodes; i++){
+    if (tst_bit(buf, i)==0){
+        set_bit(buf, i);
+        put_block(dev, imap, buf);
+        printf("allocated ino = %d\n", i+1); // bits count from 0; ino from 1
+        return i+1;
+    }
+  }
+  return 0;
+}
+
+// WRITE YOUR OWN balloc(dev) function, which returns a FREE disk block number
+
+char *disk = "mydisk";    // work with an EMPTY mydisk by mkdisk
+
+int main()
+{
+(1). open disk for RW; let dev = opened fd
+
+(2). read SUPER block to verify it's an EXT2 FS
+     and get ninodes, nblocks   as globals
+     printf("ninodes = %d nblocks = %d\n", ninodes, nblocks);
+
+(3). read Group Descriptor 0 to get bmap, imap and inode_start
+     printf("bmp=%d imap=%d inode_start = %d\n", bmap, imap, inode_start);
+
+----------------------------------------------------------
+(4). init();            // initialize FS data structures
+     mount_root();      // mount root
+
+     YOUR ls, cd, pwd commands should be working by now
+-----------------------------------------------------------
+
+                HOW TO mkdir
+
+Assume: command line = "mkdir pathname" 
+Extract cmd, pathname from line and save them as globals.
+
+int make_dir()
+{
+   MINODE *start;		     
+1. pahtname = "/a/b/c" start = root;         dev = root->dev;
+            =  "a/b/c" start = running->cwd; dev = running->cwd->dev;
+
+2. Let  
+     parent = dirname(pathname);   parent= "/a/b" OR "a/b"
+     child  = basename(pathname);  child = "c"
+
+   WARNING: strtok(), dirname(), basename() destroy pathname
+
+3. Get minode of parent:
+
+       pino  = getino(parent);
+       pip   = iget(dev, pino); 
+
+   Verify : (1). parent INODE is a DIR (HOW?)   AND
+            (2). child does NOT exists in the parent directory (HOW?);
+               
+4. call mymkdir(pip, child);
+
+5. inc parent inodes's link count by 1; 
+   touch its atime and mark it DIRTY
+
+6. iput(pip);
+     
+} 
+
+int mymkdir(MINODE *pip, char *name)
+{
+   MINODE *mip;
+
+1. pip points at the parent minode[] of "/a/b", name is a string "c" 
+
+2. allocate an inode and a disk block for the new directory;
+        ino = ialloc(dev);    
+        bno = balloc(dev);
+   DO NOT WORK IN THE DARK: PRINT OUT THESE NUMBERS!!!
+
+3. mip = iget(dev, ino);  load the inode into a minode[] (in order to
+   wirte contents to the INODE in memory.
+
+4. Write contents to mip->INODE to make it a DIR INODE.
+
+5. iput(mip); which should write the new INODE out to disk.
+
+  // C CODE of (3), (4) and (5):
+  //**********************************************************************
+  mip = iget(dev,ino);
+  INODE *ip = &mip->INODE;
+  Use ip-> to acess the INODE fields:
+
+  i_mode = 0x41ED;		// OR 040755: DIR type and permissions
+  i_uid  = running->uid;	// Owner uid 
+  i_gid  = running->gid;	// Group Id
+  i_size = BLKSIZE;		// Size in bytes 
+  i_links_count = 2;	        // Links count=2 because of . and ..
+  i_atime = i_ctime = i_mtime = time(0L);  // set to current time
+  i_blocks = 2;                	// LINUX: Blocks count in 512-byte chunks 
+  i_block[0] = bno;             // new DIR has one data block   
+  i_block[1] to i_block[14] = 0;
+ 
+  mip->dirty = 1;               // mark minode dirty
+  iput(mip);                    // write INODE to disk
+
+
+//***** create data block for new DIR containing . and .. entries ******
+6. Write . and .. entries to a buf[ ] of BLKSIZE
+
+   | entry .     | entry ..     |                                       |
+   ----------------------------------------------------------------------
+   |ino|12|1|.   |pino|1012|2|..                                        |
+   ----------------------------------------------------------------------
+
+   Then, write buf[ ] to the disk block bno;
+
+7. Finally, enter name ENTRY into parent's directory by 
+            enter_name(pip, ino, name);
+
+
+8. int enter_name(MINODE *pip, int myino, char *myname)
+{
+ For each data block of parent DIR do { // assume: only 12 direct blocks
+
+     if (i_block[i]==0) BREAK;
+
+(1). get parent's data block into a buf[];
+   
+(2). Each DIR entry has rec_len, name_len. Each entry's ideal length is   
+
+        IDEAL_LEN = 4*[ (8 + name_len + 3)/4 ]
+ 
+     All DIR entries in a data block have rec_len = IDEAL_LEN, except the last
+     entry. The rec_len of the LAST entry is to the end of the block, which may
+     be larger than its IDEAL_LEN.
+
+  --|-4---2----2--|----|---------|--------- rlen ->------------------------|
+    |ino rlen nlen NAME|.........|ino rlen nlen|NAME                       |
+  --------------------------------------------------------------------------
+
+(3). To enter a new entry of name with n_len, the needed length is
+
+        need_length = 4*[ (8 + n_len + 3)/4 ]  // a multiple of 4
+
+(4). Step to the last entry in a data block (HOW?).
+ 
+    // get parent's data block into a buf[ ] 
+
+       get_block(parent->dev, parent->INODE.i_block[i], buf);
+  
+       dp = (DIR *)buf;
+       cp = buf;
+
+       // step to LAST entry in block: int blk = parent->INODE.i_block[i];
+       
+       printf("step to LAST entry in data block %d\n", blk);
+       while (cp + dp->rec_len < buf + BLKSIZE){
+
+          /*************************************************
+             print DIR record names while stepping through
+          **************************************************/
+
+          cp += dp->rec_len;
+          dp = (DIR *)cp;
+       } 
+       // dp NOW points at last entry in block
+  
+     Let remain = LAST entry's rec_len - its IDEAL_LENGTH;
+
+     if (remain >= need_length){
+        enter the new entry as the LAST entry and trim the previous entry
+        to its IDEAL_LENGTH; 
+        goto (6) below.
+     } 
+
+                             EXAMPLE:
+
+                                 |LAST entry 
+  --|-4---2----2--|----|---------|--------- rlen ->------------------------|
+    |ino rlen nlen NAME|.........|ino rlen nlen|NAME                       |
+  --------------------------------------------------------------------------
+                                                    |     NEW entry
+  --|-4---2----2--|----|---------|----ideal_len-----|--- rlen=remain ------|
+    |ino rlen nlen NAME|.........|ino rlen nlen|NAME|myino rlen nlen myname|
+  --------------------------------------------------------------------------
+
+}
+
+(5).// Reach here means: NO space in existing data block(s)
+
+  Allocate a new data block; INC parent's isze by BLKSIZE;
+  Enter new entry as the first entry in the new data block with rec_len=BLKSIZE.
+
+  |-------------------- rlen = BLKSIZE -------------------------------------
+  |myino rlen nlen myname                                                  |
+  --------------------------------------------------------------------------
+
+(6).Write data block to disk;
+}        
+
+
+creat_file()
+{
+  This is ALMOST THE SAME AS mkdir() except : 
+   (1). its inode's mode field is set to a REGULAR file, 
+        permission bits to (default) rw-r--r--, 
+   (2). No data block, so size = 0
+   (3). links_count = 1;
+   (4). Do NOT increment parent's links_count
+} 
+
+
+int my_creat(MINODE *pip; char *name)
+{
+  Same as mymkdir() except 
+    INODE's file type = 0x81A4 OR 0100644
+    links_count = 1
+    NO data block, so size = 0
+    do NOT inc parent's link count.
+}  
+
+====================================================================
+
+================ development HEPS =============================
+
+1. Your mkdir/creat may trash the disk iamge (by writing to wrong inode or data
+   blocks), which will cause problems later even if your program is correct.
+   So, it's better to use a FRESH disk image each time during development.
+
+   Write a sh script "run" or "doit" containing: 
+
+      mkfs disk 1440  # renew the disk image file
+      mk
+      a.out
+
+   Enter run or doit to test YOUR new a.out, so that you use a NEW disk image 
+   file each time until YOUR a.out no longer traches the disk image.
+
+2. After running YOUR mkdir/creat commands, you should check the results 
+   under LINUX. Write a sh script "s" containing
+       
+         sudo mount -o loop disk /mnt
+         ls -l /mnt
+         sudo umount /mnt
+
+   so that s will show the disk contents under LINUX.
+==============================================================
+  
+
+     
+<Title>360 Notes</Title>
+<Body bgcolor="#00cccc" text="#000000">
+
+<H1>360 Project Help: HOW TO mkdir_creat</H1>
+<h2>DUE and DEMO: 3-26-2020</h2>
+<H2>Chapter 11.8.1: mkdir. 11.8.2: creat, 11.8.3</H2>
+<Pre>
+
+#include &lt;stdio.h>
+#include &lt;stdlib.h>
+#include &lt;fcntl.h>
+#include &lt;string.h>
+#include &lt;time.h>
+#include &lt;libgen.h>
+#include &lt;sys/stat.h>
+#include &lt;ext2fs/ext2_fs.h>
+#include &lt;time.h>
+
+#include "util.c"     // SAME as in mount_root but do not include type.h
+
+// define shorter TYPES, save typing efforts
+typedef struct ext2_group_desc  GD;
+typedef struct ext2_super_block SUPER;
+typedef struct ext2_inode       INODE;
+typedef struct ext2_dir_entry_2 DIR;    // need this for new version of e2fs
+
+#define BLKSIZE 1024
+GD    *gp;
+SUPER *sp;
+INODE *ip;
+DIR   *dp; 
+
+/********** globals *************/
+int fd, dev;             // dev = fd    
+int ninodes, nblocks;    // ninodes, nblocks numbers from SUPER
+int bmap, imap, iblock, inode_start;  // BMAP, IMAP, inodes start block numbers
+
+char gpath[128];         // token strings
+int  n;                  // number of token strings
+char *name[64];          // pointers to token strings
+
+char line[128], command[32], pathname[128];
+
+
+int tst_bit(char *buf, int bit)
+{
+  // in Chapter 11.3.1
+}
+
+int set_bit(char *buf, int bit)
+{
+  // in Chapter 11.3.1
+}
+
+
+int decFreeInodes(int dev)
+{
+  char buf[BLKSIZE];
+  // dec free inodes count by 1 in SUPER and GD
+  get_block(dev, 1, buf);
+  sp = (SUPER *)buf;
+  sp->s_free_inodes_count--;
+  put_block(dev, 1, buf);
+
+  get_block(dev, 2, buf);
+  gp = (GD *)buf;
+  gp->bg_free_inodes_count--;
+  put_block(dev, 2, buf);
+}
+
+// you should already have nblocks, ninodes, imap, bmap as GLOBALs
+
+int ialloc(int dev)  // allocate an inode number
+{
+  int  i;
+  char buf[BLKSIZE];
+
+// read inode_bitmap block
+  printf("bmap = %d ", bmp);  
+  get_block(dev, imap, buf);
+
+  for (i=0; i < ninodes; i++){
+    if (tst_bit(buf, i)==0){
+       set_bit(buf,i);
+       put_block(dev, imap, buf);
+       decFreeInodes();
+       printf("allocated ino = %d\n", i+1);
+       return i+1;
+    }
+  }
+  return 0;
+}
+
+// WRITE YOUR OWN int balloc(dev) function, which returns a FREE disk block number
+
+char *disk = "mydisk";    // work with an EMPTY mydisk first
+
+int main(int argc, char *argv[ ])
+{
+  int i, ino;
+  char buf[BLKSIZE];
+
+  fd = dev = open(disk, O_RDWR);
+  if (fd < 0){
+    printf("open %s failed\n", disk);
+    exit(1);
+  }
+
+  // read SUPER block to verify it's an EXT2 FS
+  get_block(fd, 1, buf);
+  sp = (SUPER *)buf;
+  // verfiy it's an EXT2 FS
+	   
+  ninodes = sp->s_inodes_count;
+  nblocks = sp->s_blocks_count;
+
+  printf("ninodes = %d nblocks = %d\n", ninodes, nblocks);
+
+  // read Group Descriptor 0 to get bmap, imap and iblock numbers
+  get_block(fd, 2, buf);
+  gp = (GD *)buf;
+
+  bmap = gp->bg_block_bitmap;
+  imap = gp->bg_inode_bitmap;
+  iblock = gp->bg_inode_table;
+		     
+  inode_start = iblock;
+  printf("bmp=%d imap=%d iblock = %d\n", bmap, imap, iblock);
+
+----------------------------------------------------------
+3. DO init(); mount_root(); as in LAB #6
+-----------------------------------------------------------
+                   HOW TO mkdir
+
+Assume: command line = "mkdir pathname" 
+Extract cmd, pathname from line and save them as globals.
+
+int make_dir()
+{
+   MINODE *start;		     
+1. pahtname = "/a/b/c" start = root;         dev = root->dev;
+            =  "a/b/c" start = running->cwd; dev = running->cwd->dev;
+
+2. Let  
+     parent = dirname(pathname);   parent= "/a/b" OR "a/b"
+     child  = basename(pathname);  child = "c"
+
+   WARNING: strtok(), dirname(), basename() destroy pathname
+
+3. Get the In_MEMORY minode of parent:
+
+         pino  = getino(parent);
+         pip   = iget(dev, pino); 
+
+   Verify : (1). parent INODE is a DIR (HOW?)   AND
+            (2). child does NOT exists in the parent directory (HOW?);
+               
+4. call mymkdir(pip, child);
+
+5. inc parent inodes's link count by 1; 
+   touch its atime and mark it DIRTY
+
+6. iput(pip);
+     
+} 
+
+
+int mymkdir(MINODE *pip, char *name)
+{
+   MINODE *mip;
+
+1. pip points at the parent minode[] of "/a/b", name is a string "c") 
+
+2. allocate an inode and a disk block for the new directory;
+        ino = ialloc(dev);    
+        bno = balloc(dev);
+   DO NOT WORK IN THE DARK: PRINT OUT THESE NUMBERS!!!
+
+3. mip = iget(dev, ino);  load the inode into a minode[] (in order to
+   wirte contents to the INODE in memory.
+
+4. Write contents to mip->INODE to make it as a DIR INODE.
+
+5. iput(mip); which should write the new INODE out to disk.
+
+  // C CODE of (3), (4) and (5):
+  //**********************************************************************
+  mip = iget(dev,ino);
+  INODE *ip = &mip->INODE;
+  Use ip-> to acess the INODE fields:
+
+  i_mode = 0x41ED;		// OR 040755: DIR type and permissions
+  i_uid  = running->uid;	// Owner uid 
+  i_gid  = running->gid;	// Group Id
+  i_size = BLKSIZE;		// Size in bytes 
+  i_links_count = 2;	        // Links count=2 because of . and ..
+  i_atime = i_ctime = i_mtime = time(0L);  // set to current time
+  i_blocks = 2;                	// LINUX: Blocks count in 512-byte chunks 
+  i_block[0] = bno;             // new DIR has one data block   
+  i_block[1] to i_block[14] = 0;
+ 
+  mip->dirty = 1;               // mark minode dirty
+  iput(mip);                    // write INODE to disk
+
+
+//***** create data block for new DIR containing . and .. entries ******
+6. Write . and .. entries into a buf[ ] of BLKSIZE
+
+   | entry .     | entry ..                                             |
+   ----------------------------------------------------------------------
+   |ino|12|1|.   |pino|1012|2|..                                        |
+   ----------------------------------------------------------------------
+
+   Then, write buf[ ] to the disk block bno;
+
+7. Finally, enter name ENTRY into parent's directory by 
+            enter_name(pip, ino, name);
+
+
+8. int enter_name(MINODE *pip, int myino, char *myname)
+{
+ For each data block of parent DIR do { // assume: only 12 direct blocks
+
+     if (i_block[i]==0) BREAK;
+
+(1). get parent's data block into a buf[];
+   
+(2). EXT2 DIR entries: Each DIR entry has rec_len and name_len. Each entry's
+     ideal length is   
+
+        IDEAL_LEN = 4*[ (8 + name_len + 3)/4 ]
+ 
+     All DIR entries in a data block have rec_len = IDEAL_LEN, except the last
+     entry. The rec_len of the LAST entry is to the end of the block, which may
+     be larger than its IDEAL_LEN.
+
+  --|-4---2----2--|----|---------|--------- rlen ->------------------------|
+    |ino rlen nlen NAME|.........|ino rlen nlen|NAME                       |
+  --------------------------------------------------------------------------
+
+(3). To enter a new entry of name with n_len, the needed length is
+
+        need_length = 4*[ (8 + n_len + 3)/4 ]  // a multiple of 4
+
+(4). Step to the last entry in a data block (HOW?).
+ 
+    // get parent's ith data block into a buf[ ] 
+
+       get_block(parent->dev, parent->INODE.i_block[i], buf);
+  
+       dp = (DIR *)buf;
+       cp = buf;
+
+       // step to LAST entry in block: int blk = parent->INODE.i_block[i];
+       
+       printf("step to LAST entry in data block %d\n", blk);
+       while (cp + dp->rec_len < buf + BLKSIZE){
+
+          /*************************************************
+             print DIR record names while stepping through
+          **************************************************/
+
+          cp += dp->rec_len;
+          dp = (DIR *)cp;
+       } 
+       // dp NOW points at last entry in block
+  
+     Let remain = LAST entry's rec_len - its IDEAL_LENGTH;
+
+     if (remain >= need_length){
+        enter the new entry as the LAST entry and trim the previous entry
+        to its IDEAL_LENGTH; 
+        goto (6) below.
+     } 
+
+                             EXAMPLE:
+
+                                 |LAST entry 
+  --|-4---2----2--|----|---------|--------- rlen ->------------------------|
+    |ino rlen nlen NAME|.........|ino rlen nlen|NAME                       |
+  --------------------------------------------------------------------------
+                                                    |     NEW entry
+  --|-4---2----2--|----|---------|----ideal_len-----|--- rlen=remain ------|
+    |ino rlen nlen NAME|.........|ino rlen nlen|NAME|myino rlen nlen myname|
+  --------------------------------------------------------------------------
+
+}
+
+(5).// Reach here means: NO space in existing data block(s)
+
+  Allocate a new data block; INC parent's isze by BLKSIZE;
+  Enter new entry as the first entry in the new data block with rec_len=BLKSIZE.
+
+  |-------------------- rlen = BLKSIZE -------------------------------------
+  |myino rlen nlen myname                                                  |
+  --------------------------------------------------------------------------
+
+(6).Write data block to disk;
+}        
+
+
+creat_file()
+{
+  This is ALMOST THE SAME AS mkdir() except : 
+   (1). its inode's mode field is set to a REGULAR file, 
+        permission bits to (default) rw-r--r--, 
+   (2). No data block, so size = 0
+   (3). links_count = 1;
+   (4). Do NOT increment parent's links_count
+} 
+
+
+int my_creat(MINODE *pip; char *name)
+{
+  Same as mymkdir() except 
+    INODE's file type = 0x81A4 OR 0100644
+    links_count = 1
+    NO data block, so size = 0
+    do NOT inc parent's link count.
+}  
+
+====================================================================
+
+================ development HEPS =============================
+
+1. Your mkdir/creat may trash the disk iamge (by writing to wrong inode or data
+   blocks), which will cause problems later even if your program is correct.
+   So, it's better to use a FRESH disk image each time during development.
+
+   Write a sh script "run" or "doit" containing: 
+
+      mkfs disk 1440  # renew the disk image file
+      mk
+      a.out
+
+   Enter run or doit to test YOUR new a.out, so that you use a NEW disk image 
+   file each time until YOUR a.out no longer traches the disk image.
+
+2. After running YOUR mkdir/creat commands, you should check the results 
+   under LINUX. Write a sh script "s" containing
+       
+         sudo mount -o loop disk /mnt
+         ls -l /mnt
+         sudo umount /mnt
+
+   so that s will show the disk contents under LINUX.
+==============================================================
+  
+
+     
+<Title>360 Assignment</Title>
+<Body bgcolor="#00CCCC" text="#000000">
+
+<H1>Assignment #5: Mount Root Operation of FS</H1>
+<H1>DUE: 3-12-2020: ABSOLUTELY NO COPYING!!!!</H1>
+<H1>Turn in a hard copy in class (one per group)</H1>
+<H1>READ Chapter 11.7.3: Mount-Root</H1>
+<Pre>
+  On top of your hard copy: MARK yes or no
+  1. does your ls work?  ls; ls /dir1; ls /dir1/dir3_______________________
+  2. does your cd work?  cd /dir1; cd /dir1/dir3 __________________________
+  3. does your pwd work? __________________________________________________
+  
+                    A. REQUIREMENTS: 
+=======================================================================
+Write a C program to start up the FS project:
+
+1. Initialize FS data structures
+2. mount the root file system
+3. ls the root directory /
+4. cd and pwd
+=======================================================================
+
+                     B. HELP information
+
+1. Download files from ~samples/MOUNTROOT
+   README
+
+2. FS Level-1 Data Structures
+
+PROC* running           MINODE *root                          
+      |                          |                 ||*********************
+      V                          |  MINODE         || 
+    PROC[0]                      V minode[64]      ||         Disk dev
+ =============  |-pointerToCWD-> ==== 0 =====      ||   ==================
+ |nextProcPtr|  |                |  INODE   |      ||   |     INODEs   
+ |pid = 0    |  |                | -------  |      ||   ================== 
+ |uid = 0    |  |                | (dev,2)  |      || 
+ |cwd --------->|                | refCount=3      ||*********************
+ |           |                   | dirty=0  |
+ |fd[8]      |                   | mounted=1|         
+ | ------    |                   | mptr     |
+ |           |                   |----------| 
+ | - ALL 0 - |                   |==========|         
+ | ------    |                   |  INODE   |          
+ | ------    |                   | -------  |   
+ =============                   | (dev,ino)|   
+                                 | refCount |  
+   PROC[1]          ^            | dirty    |   
+    pid=1           |            |          |
+    uid=1           |            |          |
+    cwd ----> root minode        |==========|  
+
+
+3. init() // Initialize data structures of LEVEL-1:
+   {
+     (1). 2 PROCs, P0 with uid=0, P1 with uid=1, all PROC.cwd = 0
+     (2). MINODE minode[128]; all with refCount=0
+     (3). MINODE *root = 0;
+   }
+
+4. util.c file contains functions: getino(pathname); iget(dev, ino); iput(mip);
+   Their usage has the following pattern:
+
+     int ino     = getino(char *pathname);  
+     MINODE *mip = iget(dev, ino);
+
+                   // USE the INODE in minode
+
+                   iput(mip)
+
+5. int mount_root()  // mount root file system, establish / and CWDs
+   {
+      open device for RW (the file descriptor is dev for the opened device)
+      read SUPER block to verify it's an EXT2 FS
+      record nblocks, ninodes as globals
+
+      read GD0; record    bamp, imap, iblock=inodes_start    as globals;
+      
+      root = iget(dev, 2);    // get root inode into MINODE[0] 
+   
+      Let cwd of both P0 and P1 point at the root minode (refCount=3)
+          P0.cwd = iget(dev, 2); 
+          P1.cwd = iget(dev, 2);
+
+      Let running -> P0.
+    }
+
+
+6.int main()
+  {
+     init();
+     mount_root();
+
+     while(1){
+        //  ask for a command line = "cmd [pathname]"
+        //  cmd=ls:
+                ls(pathname);
+        //  cmd=cd:
+                chdir(pathname);
+        //  cmd=pwd
+                pwd(running->cwd)
+            cmd=quit
+                quit();
+  }       
+
+<H2>The requirememnts are for YOU to implement ls(), cd(), pwd()</H2>
+	    
+7. HOW TO ls [pathname]:
+
+   Read Chapter 11.7.3: HOW TO ls and Algorithm of ls
+
+8. HOW TO chdir(char *pathname)
+
+   Read Chapter 11.7.3: HOW TO chdir
+
+9. HOW TO pwd()?    pwd(running->cwd):
+
+   READ Chapter 11.7.3: HOW TO pwd
+
+10.int quit()
+   {
+     iput() all minodes with (refCount > 0 && DIRTY);
+     exit(0); 
+   }
+
+11. Sample Solution: ~samples/MOUNTROOT/solution
+
+
+                  Review Questions:
+
+1. EXPLAIN in words: What does mount root do? 
+
+2. Given  int ino;              // an INODE number
+          INODE thisInode;      // an INODE structure
+   Write C code to load the INODE of ino into thisInode
+
+3. Assume: MINODE *mip points at an in-memory DIR minode
+                                                  INODE
+                                                  dev, ino
+                                                  refCount
+                                                  dirty
+
+(1). Write C code to print its parent ino:
+
+(2). HOW to find the name string of this DIR INODE?
+	      
+
+
+<Title>360 Notes</Title>
+<Body bgcolor="#00cccc" text="#000000">
+<H1>360 HELP INFO</H1>
+<h2>READ Chapter 11.10</H2>
+
+<Pre>
+   
+                 HOW TO MOUNT_UMOUNT
+
+ASSUME: newfs is a virtual disk (a Linux file) containing an EXT2 file system.
+
+  RunningPtr
+     |                                                  ||*********************
+     |                                                  ||
+     V        |---- PointerToCWD ------|                ||
+              |                        |                || 
+   PROC[ ]    |                        V  MINODE[ ]     ||        root dev
+ ===========  |                         ============    ||   ==================
+ |nextProcPtr |                         |  INODE   |    ||   |     INODEs   
+ |pid, ppid   |                         | -------  |    ||   ================== 
+ |uid         |                         | dev,ino  |    || 
+ |cwd --------|                         | refCount |    ||*********************
+ |                                      | dirty    |
+ |fd[10]                                | mounted  |         
+ | ------                               | mTablePtr| 
+ | ------                               |==========|<--<-        
+ | ------                               |  INODE   |    |      
+ | ------                               | -------  |    | 
+ ===========                            | dev,ino  |    |
+                                        | refCount |    |
+                                        |  dirty   |    |
+                                        |  mounted |    |
+                                     <--| mTablePtr|    |
+                                     |  |==========|    |         
+            PointAtRootInode         |                  |
+                   ^                 |                  |
+                   |                 V                  |
+                   |  MountTable[ ]  |                  |       mount DEV
+                   |  ------- 0 --------- 1 ---------   |     --------------
+                   |  | devNumber    |   DEV      |     |     |  #2_INODE   |
+                   |--| MinodePtr    |  MinodePtr-|----->     --------------
+                      -------------------------------
+                      | deviceName   |    name    |
+                      ------------------------------- 
+
+                            Mounting Diagram
+ 
+mount()    /*  Usage: mount filesys mount_point OR mount */
+{
+
+1. Ask for filesys (a pathname) and mount_point (a pathname also).
+   If mount with no parameters: display current mounted filesystems.
+
+2. Check whether filesys is already mounted: 
+   (you may store the name of mounted filesys in the MOUNT table entry). 
+   If already mounted, reject;
+   else: allocate a free MOUNT table entry (whose dev=0 means FREE).
+
+3. open filesys for RW; use its fd number as the new DEV;
+   Check whether it's an EXT2 file system: if not, reject.
+
+4. For mount_point: find its ino, then get its minode:
+    call  ino  = getino(pathname);  to get ino:
+    call  mip  = iget(DEV, ino);    to get its minode in memory;    
+
+5. Check mount_point is a DIR.  
+   Check mount_point is NOT busy (e.g. can't be someone's CWD)
+
+6. Record new DEV in the MOUNT table entry;
+
+  (For convenience, store the filesys name in the Mount table, and also its
+                    ninodes, nblocks, bitmap blocks, inode_start block, etc. 
+   for quick reference)
+
+7. Mark mount_point's minode as being mounted on and let it point at the
+   MOUNT table entry, which points back to the mount_point minode.
+
+. return 0 for SUCCESS;
+}
+  
+
+umount(char *filesys)
+{
+
+1. Search the MOUNT table to check filesys is indeed mounted.
+
+2. Check whether any file is still active in the mounted filesys;
+      e.g. someone's CWD or opened files are still there,
+   if so, the mounted filesys is BUSY ==> cannot be umounted yet.
+   HOW to check?      ANS: by checking all minode[].dev
+
+3. Find the mount_point's inode (which should be in memory while it's mounted 
+   on).  Reset it to "not mounted"; then 
+         iput()   the minode.  (because it was iget()ed during mounting)
+
+4. return 0 for SUCCESS;
+
+}  
+  
+
+                  IMPLICATIONS of mount:
+
+Although it is easy to implement mount and umount, there are implications.
+
+With mount, you must modify the getino(pathname) function to support 
+"cross mount points". Assume that a file system, newfs, has been mounted on 
+the directory /a/b/c/.  When traversing a pathname, crossing mount point may
+occur in both directions.
+ 
+(3).1. Dwonward traversal: When traversing the pathname /a/b/c/x/y, once you 
+reach the minode of /a/b/c, you should see that the minode has been mounted on 
+(mounted flag=1). Instead of searching for x in the INODE of /a/b/c, you must
+
+    .Follow the minode's mountTable pointer to locate the mount table entry.
+    .From the newfs's dev number, iget() its root (ino=2) INODE into memory.
+    .Then,continue to search for x/y under the root INODE of newfs.
+
+(3).2. Upward traversal: Assume that you are at the directory /a/b/c/x/ and 
+traversing upward, e.g. cd  ../../,  which will cross the mount point at /a/b/c.
+
+When you reach the root INODE of the mounted file system, you should see that it
+is a root directory (ino=2) but its dev number differs from that of the real 
+root. Using its dev number, you can locate its mount table entry, which points 
+to the mounted minode of /a/b/c/. Then, you switch to the minode of /a/b/c/ and 
+continue the upward traversal. Thus, crossing mount point is like a monkey or 
+squirrel hoping from one tree to another tree and then back.
+
+(3).3. While traversing a pathname, the dev number may change. You must modify
+the getino(pathname) function to change the (global) dev number whenever it 
+crosses a mount point. Thus,
+
+        (global) int dev;   // start from root dev OR running->cwd's dev
+        int ino = getino(pathname);
+
+essentially returns the (dev, ino) of a pathname.
+
+
+==============================================================================
+Sample solution of FS Project:   samples/projectDemo/
+                                            |- a.out
+                                            |- mydisk
+                                            |- disk
+                                            |- README
+
+================ README ===================
+Run a.out    (defualt disk image = mydisk)
+Run a.out -d (in debugging mode)
+Enter menu to see supported commands
+===========================================
+
+Downnload all the files. Run a.out as shown in README.
+
+<Title>360 PROJECT HELP</Title>
+<Body bgcolor="#ffffca" text="#000000">
+
+<H1>360 Project HELP</H1>
+<h2>READ Chapter 11.9.2 - 11.9.3</h2>
+<Pre>
+                    HOW TO open_close_lseek
+
+
+Open File Data Structures:
+
+    running
+      |                                                  
+      |                                                    ||****************** 
+    PROC[ ]              OFT[ ]              MINODE[ ]     ||      Disk dev
+  ===========    |---> ===========    |--> ============    || ===============
+  |ProcPtr  |    |     |mode     |    |    |  INODE   |    || |      INODE   
+  |pid, ppid|    |     |refCount |    |    | -------  |    || =============== 
+  |uid      |    |     |minodePtr|---->    | dev,ino  |    || 
+  |cwd      |    |     |offset   |         | refCount |    ||******************
+  |         |    |     ====|======         | dirty    |
+  |  fd[10] |    |         |               | mounted  |         
+  | ------  |    |         |               ============
+0 |   ----->|--->|         |
+  | ------  |              |   
+1 |         |              |
+  | ------  |             --------------------------------
+2 |         |             |0123456.............
+  | ------  |             --------------------------------    
+  ===========        logical view of file: a sequence of bytes
+                          
+   
+int open_file()
+{
+  1. ask for a pathname and mode to open:
+         You may use mode = 0|1|2|3 for R|W|RW|APPEND
+
+  2. get pathname's inumber:
+         if (pathname[0]=='/') dev = root->dev;          // root INODE's dev
+         else                  dev = running->cwd->dev;  
+         ino = getino(pathname); 
+
+  3. get its Minode pointer
+         mip = iget(dev, ino);  
+
+  4. check mip->INODE.i_mode to verify it's a REGULAR file and permission OK.
+      
+     Check whether the file is ALREADY opened with INCOMPATIBLE mode:
+           If it's already opened for W, RW, APPEND : reject.
+           (that is, only multiple R are OK)
+
+  5. allocate a FREE OpenFileTable (OFT) and fill in values:
+ 
+         oftp->mode = mode;      // mode = 0|1|2|3 for R|W|RW|APPEND 
+         oftp->refCount = 1;
+         oftp->minodePtr = mip;  // point at the file's minode[]
+
+  6. Depending on the open mode 0|1|2|3, set the OFT's offset accordingly:
+
+      switch(mode){
+         case 0 : oftp->offset = 0;     // R: offset = 0
+                  break;
+         case 1 : truncate(mip);        // W: truncate file to 0 size
+                  oftp->offset = 0;
+                  break;
+         case 2 : oftp->offset = 0;     // RW: do NOT truncate file
+                  break;
+         case 3 : oftp->offset =  mip->INODE.i_size;  // APPEND mode
+                  break;
+         default: printf("invalid mode\n");
+                  return(-1);
+      }
+
+   7. find the SMALLEST i in running PROC's fd[ ] such that fd[i] is NULL
+      Let running->fd[i] point at the OFT entry
+
+   8. update INODE's time field
+         for R: touch atime. 
+         for W|RW|APPEND mode : touch atime and mtime
+      mark Minode[ ] dirty
+
+   9. return i as the file descriptor
+}
+
+
+int truncate(MINODE *mip)
+{
+  1. release mip->INODE's data blocks;
+     a file may have 12 direct blocks, 256 indirect blocks and 256*256
+     double indirect data blocks. release them all.
+  2. update INODE's time field
+
+  3. set INODE's size to 0 and mark Minode[ ] dirty
+}
+ 
+      
+int close_file(int fd)
+{
+  1. verify fd is within range.
+
+  2. verify running->fd[fd] is pointing at a OFT entry
+
+  3. The following code segments should be fairly obvious:
+     oftp = running->fd[fd];
+     running->fd[fd] = 0;
+     oftp->refCount--;
+     if (oftp->refCount > 0) return 0;
+
+     // last user of this OFT entry ==> dispose of the Minode[]
+     mip = oftp->inodeptr;
+     iput(mip);
+
+     return 0; 
+}
+
+int lseek(int fd, int position)
+{
+  From fd, find the OFT entry. 
+
+  change OFT entry's offset to position but make sure NOT to over run either end
+  of the file.
+
+  return originalPosition
+}
+
+int pfd()
+{
+  This function displays the currently opened files as follows:
+
+        fd     mode    offset    INODE
+       ----    ----    ------   --------
+         0     READ    1234   [dev, ino]  
+         1     WRITE      0   [dev, ino]
+      --------------------------------------
+  to help the user know what files has been opened.
+}
+
+====================================================================
+          Other Simple FILE DESCRIPTOR operations:
+
+dup(int fd): 
+{
+  verify fd is an opened descriptor;
+  duplicates (copy) fd[fd] into FIRST empty fd[ ] slot;
+  increment OFT's refCount by 1;
+}
+
+dup2(int fd, int gd):
+{
+  CLOSE gd fisrt if it's already opened;
+  duplicates fd[fd] into fd[gd]; 
+}
+
+As you already know, these are needed for I/O redirections
+
+<Title>360 File System HELP</Title>
+<Body bgcolor="#ffffca" text="#000000">
+
+<H1>360 Project HELP</H1>
+<H2>READ chapter 11.9.4</H2>
+<Pre>
+                      HOW TO read
+
+int read_file()
+{
+  Preparations: 
+    ASSUME: file is opened for RD or RW;
+    ask for a fd  and  nbytes to read;
+    verify that fd is indeed opened for RD or RW;
+    return(myread(fd, buf, nbytes));
+}
+
+int myread(int fd, char buf[ ], nbytes) behaves EXACTLY the same as the
+read() system call in Unix/Linux. 
+The algorithm of myread() can be best explained in terms of the following 
+diagram.
+
+(1).  PROC              (2).                          | 
+     =======   |--> OFT oft[ ]                        |
+     | pid |   |   ============                       |
+     | cwd |   |   |mode=flags|                       | 
+     | . ..|   |   |minodePtr ------->  minode[ ]     |      BlockDevice
+     | fd[]|   |   |refCount=1|       =============   |   ==================
+ fd: | .------>|   |offset    |       |  INODE    |   |   | INODE -> blocks|
+     |     |       |===|======|       |-----------|   |   ==================
+     =======           |              |  dev,ino  |   |
+                       |              =============   |
+                       |
+                       |<------- avil ------->|
+    -------------------|-----------------------
+    |    |    | ...  |lbk  |   |  ...| .......|
+    -------------------|---|------------------|-
+lbk   0    1 .....     |rem|                   |
+                     start                   fsize  
+                        
+------------------------------------------------------------------------------
+                 Data structures for reading file
+
+(1). Assume that fd is opened for READ. 
+(2). The offset in the OFT points to the current byte position in the file from
+     where we wish to read nbytes. 
+(3). To the kernel, a file is just a sequence of contiguous bytes, numbered from
+     0 to file_size - 1. As the figure shows, the current byte position, offset
+     falls in a LOGICAL block (lbk), which is 
+
+             lbk = offset / BLKSIZE 
+
+     the byte to start read in that logical block is 
+
+             start = offset % BLKSIZE 
+
+     and the number of bytes remaining in the logical block is 
+
+             remain = BLKSIZE - start. 
+
+     At this moment, the file has 
+
+             avil = file_size - offset 
+
+     bytes available for read. 
+
+     These numbers are used in the read algorithm.
+
+
+(4). myread() behaves exactly the same as the read(fd, buf, nbytes) syscall of 
+     Unix/Linux. It tries to read nbytes from fd to buf[ ], and returns the 
+     actual number of bytes read.
+
+(5). ============ Algorithm and pseudo-code of myread() =======================
+
+int myread(int fd, char *buf, int nbytes)
+{
+ 1. int count = 0;
+    avil = fileSize - OFT's offset // number of bytes still available in file.
+    char *cq = buf;                // cq points at buf[ ]
+
+ 2. while (nbytes && avil){
+
+       Compute LOGICAL BLOCK number lbk and startByte in that block from offset;
+
+             lbk       = oftp->offset / BLKSIZE;
+             startByte = oftp->offset % BLKSIZE;
+     
+       // I only show how to read DIRECT BLOCKS. YOU do INDIRECT and D_INDIRECT
+ 
+       if (lbk < 12){                     // lbk is a direct block
+           blk = mip->INODE.i_block[lbk]; // map LOGICAL lbk to PHYSICAL blk
+       }
+       else if (lbk >= 12 && lbk < 256 + 12) { 
+            //  indirect blocks 
+       }
+       else{ 
+            //  double indirect blocks
+       } 
+
+       /* get the data block into readbuf[BLKSIZE] */
+       get_block(mip->dev, blk, readbuf);
+
+       /* copy from startByte to buf[ ], at most remain bytes in this block */
+       char *cp = readbuf + startByte;   
+       remain = BLKSIZE - startByte;   // number of bytes remain in readbuf[]
+
+       while (remain > 0){
+            *cq++ = *cp++;             // copy byte from readbuf[] into buf[]
+             oftp->offset++;           // advance offset 
+             count++;                  // inc count as number of bytes read
+             avil--; nbytes--;  remain--;
+             if (nbytes <= 0 || avil <= 0) 
+                 break;
+       }
+ 
+       // if one data block is not enough, loop back to OUTER while for more ...
+
+   }
+   printf("myread: read %d char from file descriptor %d\n", count, fd);  
+   return count;   // count is the actual number of bytes read
+}
+
+                  OPTMIAZATION OF THE READ CODE:
+
+Instead of reading one byte at a time and updating the counters on each byte,
+TRY to calculate the maximum number of bytes available in a data block and
+the number of bytes still needed to read. Take the minimum of the two, and read
+that many bytes in one operation. Then adjust the counters accordingly. This 
+would make the read loops more efficient. 
+
+REQUIRED: optimize the read algorithm in your project.
+
+==========================  HOW TO cat ======================================
+cat filename:
+
+   char mybuf[1024], dummy = 0;  // a null char at end of mybuf[ ]
+   int n;
+
+1. int fd = open filename for READ;
+2. while( n = read(fd, mybuf[1024], 1024)){
+       mybuf[n] = 0;             // as a null terminated string
+       // printf("%s", mybuf);   <=== THIS works but not good
+       spit out chars from mybuf[ ] but handle \n properly;
+   } 
+3. close(fd);
+<TITLE>CS360 Review</TITLE>
+
+<BODY bgcolor="#00CCCC" TEXT="#000000" LINK="#990000" VLINK="#0000FF" ALINK="#3300FF"> 
+
+<H2>Students Requested to take exam at WSU Access Center: Go to Access Center directly</H2>
+<h2><font color="red">Exam has 3 pages, 9 questions; CLOSE book, notes, laptop, iphone</font></h2>
+<pre>
+LAB1pre Part1: C variables in a.out file: READ Chapter 2.3.1, 2.3.2
+ Given a C program with GLOBAL variable, LOCAL variables, which variables are
+ in the a.out file?________________ WHY?_______________________________________
+
+LAB1pre Part 2: Stack contents: READ Chapter 2.4.1, 2.4.2, 2.4.3
+ Given main(int argc, char *argv[]){ int a=1,b=2; A(a,b); }
+       int A(int x, int y){ int u, v; HERE:   }
+ Draw a diagram of stack contents from HERE: to argv of main()
+ Identify the STACK FRAME of A() function. 
+
+LAB1 Part 1: Partition table: READ LAB1 Assignment AND YOUR LAB1 work
+ How did you get MBR of a diskimage into char buf[512]?
+ How did you print the type of the 4 partitions?
+
+
+LAB1 Part 2: myprintf(char *fmt, . . .){ char *cp; int *ip; ....}
+ Given print(u32 x), How did you write printd(int x)?______________________
+ Write code to let cp point at the fmt string_______________________
+ Write code to let ip point at the first item to be printed on stack__________
+
+
+LAB2 PreWork Processes: 
+
+  READ Chapter 3.4 on kfork/kexit/sleep/wakeup/wait operations
+
+  What does   kfork() do? ________________________________________________
+  What does    exit() do? ________________________________________________
+  What does   sleep() do? ______________________________________________
+  What does  wakeup() do? ______________________________________________
+  What does    wait() do?_______________________________________________
+
+  Write C statements to define a node structure for
+          name   : array of 16 chars
+          child  : pointer to first child node
+          sibling: pointer to next sibling
+
+  Given a GENERAL tree, redraw it as a BINARY tree by child, sibling pointers.
+       
+Assume: node pointer p points at a node A in a BINARY tree, q points at a new node, "name" is a string 
+  
+  Write C code to 
+        ADD q as a child of A    ________________________________________
+        print names of ALL child of A___________________________________
+        search for a child of A with name; return pointer to the node or NULL
+
+LAB#2: sh simulator <========== VERY VERY IMPORTANT
+
+  READ Chapter 3.8.1: fork()
+       Chapter 3.8.3: Process termination
+       Chpater 3.8.4: pid = wait(int *status)
+       Chapter 3.8.6: execve()
+       Chapter 3.9  : I/O redirection
+       Chapter 3.10.2: Pipe command processing
+      
+  For any Linux command, how does the Linux sh find the command?______________
+  How did you tokenize PATH into dir[0],dir[1],...?__________________________
+  How did you tokenize a command line cmd a b c > out into soken strings?
+  i.e. WRITE CODE to show me how to tokenize !!!!!!!!!!
+  
+
+  YOUR main sh's logic:
+       while(1){
+         get a command line;
+         tokenize the command line;
+         for non-trivial command:
+             fork a child; HOW?______________________________________________
+             if (parent){ wait for child to die: HOW_________________________
+                          continue;
+                        }
+             else{ 
+                 // YOUR child sh do the command line
+             }
+       }
+   ----------------------------------------------------------------
+
+   CHILD sh: for a command line = CMD a b c d > outfile
+     Write code to do > outfile ___________________________________________
+               MAY be < 
+     Create a pathname = dir[i]/cmd      HOW?____________________________
+     Create myargv[ ]:   What are in myargv[ ]?___________________________
+ 
+            int r = execve(pathname, myargv, env);
+
+     What if the execve() call fails? ___________________________________
+     What if it succeeds? __________________________________________________
+
+     Assume command line = cat filename | grep print
+     Write C code to do the pipe _____________________________________________
+
+
+
+LAB3 PreWork:  READ Chapter 4 on Concurrent Programming
+
+  What are threeds?________________________________________________________
+  Difference between PROCESS and threads is? _______________________________
+
+  How to create a threads? WRITE CODE for it!!!_________________________________
+  How does thread terminate? WRITE CODE for it!!!_______________________________
+
+  How to wait to a thread to terminate? Code!!! _______________________________
+
+  What's mutex? _______________________________________________________
+  What's a Critical Region?____________________________________________
+
+  STUDY program C4.3: How to protect Critical Region by mutex?________________
+
+  STUDY program C4.4: Producer-Consumer Problem:
+        Producer and Comsumer (threads) MUST cooperate. The tool used is WHAT?
+       
+        HOW does Condition Variables WORK?____________________________________
+
+  What's DEADLOCK? _______________________________________________________
+
+
+LAB#3 Sequential AND PARALLEL programs of Gauss elimination and LU decomposition
+      with Partial Pivoting
+                       Given A*X = B, solve for X
+
+Gauss Elimination : reduce [A|B] to WHAT kind of matrix?_____________________
+
+LU decomposition  : convert A  to  P*L*U, where P = INVERSE of P.
+
+WHAT'S Partial Pivoting? ______________________________ WHY?___________________
+
+
+Assume LU method with Partial Pivoting:   A*X = B   becomes 
+                                      P*L*U*X = B   OR  
+                                        L*U*X = P*B;   
+
+ WHAT's L? _________________________________________________________________
+ WAHT's U? __________________________________________________________________
+
+ HOW TO change B to b = P*B? (READ my lu.c code)_____________________________
+
+ HOW to solve A*X = B? by L*U*X = P*B _____________________________________
+     READ LAB 3 ASSIGNMENTS and the POSTED lu.c program code.
+
+
+
+LAB#3: In the PARALLEL Gauss program C4.5, the pattern is:
+
+       // ALL N threads execute this code:
+       for (row=0, row < N-1; row++){
+           ONE thread do Partial Pivoting;
+           pthread_barrier_wait(&barrier); // WHY?_____________________________ 
+           Many threads do row reductions in parallel;
+           pthread_barrier_wait(&barrier); // WHY? ___________________________
+       }  
+
+WHAT's a barrier?____________________________________________________________
+
+Difference between barrier and threads JOIN?_________________________________
+ 
+LAB#3 SPECIFIC: In the PARALLEL Gauss program C4.5, NTHREADs = A matrix size 8.
+      HOW did you ALLOW NTHREDS < 8, e.g. 2 or 4?_____________________________
+
+
+Chapters 7,8,9: FILE OPERATIONS
+
+  System calls vs. Library I/O functions:
+         FOCUS: relationship between Library I/O functions and system calls:
+                their DIRFFERENCES and suitability.
+
+  STUDY Chapter 8.6: stat syscall:
+        HOW TO use stat call?      CODE !!!! ______________________________
+        HOW to test file type?_____________________________________________
+        HOW to test file permission bits as rwx?___________________________
+
+        What do the time field values mean?___________________________________
+        How to converts time into CALDENDAR form?____________________________
+
+  STUDY the ls program code in Chapter 8.6.7 !!!!!
+        YOU MUST HAVE DONE this: Use opendir(), readdir() to
+                                 get all file names in a directory?____________
+
+  STUDY program Example 9.1: cat file program
+        program Example 9.2: cp  file programs  CAREFULLY and try to
+                                                UNDERSTAND which is better !!!!
+                                                  
+
+LAB4 PreWork: Network Programming AND Web Pages
+     Have YOU done LAB4 preWork? if NOT you are in trouble. 
+
+PART 1: When server gets a line containing NUMBERS from client
+        HOW did you extract the numbers?_____________________________________
+        HOW did you fill a line[] with %d %s or whatever you want 
+            to be sent to client?____________________________________________
+
+PART 2: HTTP, CGI and DYNAMIC webpages:
+
+     What's your default webpage HTML file? DIR_____________/__________________
+
+     The HTML file contains a HTML FORM for submitting user inputs:
+         &lt;FORM METHOD="POST", ACTION="................">
+           BOXes for user inputs
+           SUBMIT
+         &lt;/FROM>
+
+What's POST method:       READ Chapter 13 ________________________________
+What's the purpose of the ACTION="............" statement?_____________
+When click SUBMIT, what heppens?_________________________________________
+
+What's the process uid?________________________ that excutes YOUR CGI program?
+What does  chmod u+s program  do? ____________________________________________
+
+READ mcgi.c code in YOUR public_html/cgi-bin/ directory:
+     
+     int m = getinputs(); return m pairs of user inputs from FORM as
+                          entry[i].name, entry[i].value
+                          
+                          WHAT are entry[i].value?_____________________________
+
+     In LAB4pre, AT MOST 3 user inputs: command : mkdir|rmdir|rm|ls|cat|cp 
+                                        file1   :
+                                        file2   :
+     HOW did you implement mkdir abc 0x755 ?__________________________________
+     HOW did you implement cat   filename? ___________________________________
+     HOW did you implement ls [dir] __________________________________________
+
+     The mycgi.c program has a line    printf("Content-type: text/html\n\n"); 
+     What's the purpose of this statement?___________________________
+
+     What's a DYNAMIC webpage? ______________________________________________
+     How does YOUR mycgi-bin generate dynamic webpages?_________________________
+
+     
+
+ 
+
+<Title>360 PROJECT HELP</Title>
+<Body bgcolor="#ffffca" text="#000000">
+
+<H1>HOWTO rmdir</H1>
+<h2>READ: Chapter 11.8.4, 11.8.5</h2>
+
+<Pre>
+Assume: command line = "rmdir pathname"
+1. Extract cmd, pathname from line and save them as globals.
+
+int rmdir()
+{
+  2. get inumber of pathname: determine dev, then  
+         ino = getino(&dev, pathname) 
+  3. get its minode[ ] pointer:
+         mip = iget(dev, ino);
+
+  4. check ownership 
+       super user : OK
+       not super user: uid must match
+ 
+  ------------------------------------------------------------------------
+  5. check DIR type (HOW?) AND not BUSY (HOW?) AND is empty:
+
+     HOWTO check whether a DIR is empty:
+     First, check link count (links_count > 2 means not empty);
+     However, links_count == 2 may still have FILEs, so go through its data 
+     block(s) to see whether it has any entries in addition to . and ..
+
+     if (NOT DIR || BUSY || not empty): iput(mip); retunr -1;
+
+  6. ASSUME passed the above checks.
+     Deallocate its block and inode
+     for (i=0; i<12; i++){
+         if (mip->INODE.i_block[i]==0)
+             continue;
+         bdealloc(mip->dev, mip->INODE.i_block[i]);
+     }
+     idealloc(mip->dev, mip->ino);
+     iput(mip); (which clears mip->refCount = 0);
+     
+
+  7. get parent DIR's ino and Minode (pointed by pip);
+         pip = iget(mip->dev, parent's ino); 
+
+  8. remove child's entry from parent directory by
+
+        rm_child(MINODE *pip, char *name);
+                 pip->parent Minode, name = entry to remove
+
+  9. decrement pip's link_count by 1; 
+     touch pip's atime, mtime fields;
+     mark pip dirty;
+     iput(pip);
+     return SUCCESS;
+}
+
+// rm_child(): removes the entry [INO rlen nlen name] from parent's data block.
+
+int rm_child(MINODE *parent, char *name)
+{
+   1. Search parent INODE's data block(s) for the entry of name
+
+   2. Erase name entry from parent directory by
+    
+  (1). if LAST entry in block{
+                                         |remove this entry   |
+          -----------------------------------------------------
+          xxxxx|INO rlen nlen NAME |yyy  |zzz                 | 
+          -----------------------------------------------------
+
+                  becomes:
+          -----------------------------------------------------
+          xxxxx|INO rlen nlen NAME |yyy (add zzz len to yyy)  |
+          -----------------------------------------------------
+
+      }
+    
+  (2). if (first entry in a data block){
+          deallocate the data block; modify parent's file size;
+
+          -----------------------------------------------
+          |INO Rlen Nlen NAME                           | 
+          -----------------------------------------------
+          
+          Assume this is parent's i_block[i]:
+          move parent's NONZERO blocks upward, i.e. 
+               i_block[i+1] becomes i_block[i]
+               etc.
+          so that there is no HOLEs in parent's data block numbers
+      }
+
+  (3). if in the middle of a block{
+          move all entries AFTER this entry LEFT;
+          add removed rec_len to the LAST entry of the block;
+          no need to change parent's fileSize;
+
+               | remove this entry   |
+          -----------------------------------------------
+          xxxxx|INO rlen nlen NAME   |yyy  |zzz         | 
+          -----------------------------------------------
+
+                  becomes:
+          -----------------------------------------------
+          xxxxx|yyy |zzz (rec_len INC by rlen)          |
+          -----------------------------------------------
+
+      }
+    
+  3. Write the parent's data block back to disk;
+     mark parent minode DIRTY for write-back
+}
+
+<html>
+<Body bgcolor="#00CCCC" text="#000000">
+<pre>
+
+                  CS360 LAB #8 PRE-WORK
+                 DUE: Tuesday, 10-15-2019
+		  
+    TA will check YOUR web page to verify the requirements
+
+================= PART 1: CGI PROGRAMMING: ==============================
+
+1. YOUR WEBSITE at cs360.eecs.wsu.edu
+   Each of you has a user account on the Linux machine cs360.eecs.wsu.edu
+        login name = YOUR last name     (lower case only)
+        password   = YOUR WSU ID number (no leading 0)
+
+2. Access YOUR website by
+
+        http://cs360.eecs.wsu.edu/~YOURNAME
+       
+        ------------------------------------
+        |    Welcome to YOUR Website       |
+        |       ------------------         |
+        |       | YOUR PICTURE   |         |
+        |       ------------------         |
+        | Input command  :  BOX            | 
+        | Input filename1:  BOX            |
+        | Input filename2:  BOX            | 
+        | Submit command :  Submit BOX     |
+        ------------------------------------
+
+3. You will NOT like your current picture. live with it OR change it.
+   
+
+4. When you click the Submit BOX, it submits the strings you entered to the
+   httpd (Apache) server on the cs360.eecs.wsu.edu machine, directing it to 
+   execute
+             ~kcw/cgi-bin/mycgi.bin 
+ 
+  which echos YOUR inputs and shows another input-submit window again.
+
+5. login to your account. As of now, YOUR home directory contains:
+ 
+        public_html --- index.html 
+               |
+            cgi-bin ---- mycgi.c util.o
+
+5-1. Modify YOUR public_html/index.html file: CHANGE the line
+
+< FORM METHOD="POST" ACTION="http://cs360.eecs.wsu.edu/~kcw/cgi-bin/mycgi.bin" >
+
+TO
+
+< FORM METHOD="POST" ACTION="http://cs360.eecs.wsu.edu/~YOURNAME/cgi-bin/mycgi.bin" >
+
+5-2. Go to YOUR cgi-bin/ directory. Change the line in mycgi.c file
+
+ printf("&lt;FORM METHOD=\"POST\" ACTION=\"http://cs360.eecs.wsu.edu/~kcw/cgi-bin/mycgi.bin\">"); 
+
+TO
+
+ printf("&lt;FORM METHOD=\"POST\" ACTION=\"http://cs360.eecs.wsu.edu/~YOURNAME/cgi-bin/mycgi.bin\">");
+
+Then run
+     cc -o mycgi.bin mycgi.c util.o   # generate YOUR OWN mycgi executable.
+     chmod u+s mycgi.bin              # chmod mycgi to a SETUID executable
+
+6. Access YOUR webpage again. Enter command and filenames. Then, Submit.
+   It should execute YOUR mycgi program in YOUR cgi-bin/ directory.
+
+
+<h2>======================= REQUIREMENTS ===============================</H2>
+
+1. login to your account by
+
+            ssh YOURNAME@cs360.eecs.wsu.edu
+            Change YOUR current ugly picture to YOUR pretty picture.
+
+NOTE: in order for us to know you better, please use a REAL picture of you.
+
+2. MODIFY mycgi.c to do the following commands:
+
+     mkdir dirname
+     rmdir dirname
+     rm    filename
+     cat   filename
+     cp    file1 file2
+     ls    [directory] <== if no directory, ls CWD
+
+NOTE: YOUR mycgi.bin program is executed by an Apache process (uid=80). 
+In order for the Apache process to write to YOUR directories, you MUST change 
+YOUR mycgi.bin to a setuid program by
+                    chmod u+s mycgi
+When a process executes a setuid program, it temporarily assumes the uid of the
+program owner, allowing it to write to the owner's directories.
+
+
+			   HAVE FUN !!
+
+			   
+3. Download server.c, client.c from samples/LABA4pre/
+   In One X window terminal: cc server.c; a.out
+   In another X terminal   : cc client.c; a.out
+
+		 REQUIREMAENT:
+
+  Client: input 2 numbers, e.g. 123 456
+  Server: Reply 123 456 SUM = 579
+			   
+<Title>360 PROJECT HELP</Title>
+<Body bgcolor="#ffffca" text="#000000">
+
+<H1>360 PROJECT HELP</H1>
+<H2>READ Chapter 11.9.5</h2>
+<Pre>
+                     HOW TO write_cp
+
+int write_file()
+{
+  1. Preprations:
+     ask for a fd   and   a text string to write;
+
+  2. verify fd is indeed opened for WR or RW or APPEND mode
+
+  3. copy the text string into a buf[] and get its length as nbytes.
+
+     return(mywrite(fd, buf, nbytes));
+}
+
+The algorithm of write_file() can also be explained in terms of the following
+figure.
+
+(1).  PROC              (2).                          | 
+     =======   |--> OFT oft[ ]                        |
+     | pid |   |   ============                       |
+     | cwd |   |   |mode=flags|                       | 
+     | . ..|   |   |minodePtr ------->  minode[ ]     |      BlockDevice
+     | fd[]|   |   |refCount=1|       =============   |   ==================
+ fd: | .------>|   |offset    |       |  INODE    |   |   | INODE -> blocks|
+     |     |       |===|======|       |-----------|   |   ==================
+     =======           |              | dev,inode |   | 
+                       |              |  dirty    |   |
+                       |              =============   |
+                       |
+    -------------------|-----------------
+    |    |    | ...  |lbk  | ............
+    -------------------|-----------------
+lbk   0    1 .....     |rem|            |
+                     start           fileSize (in INODE)  
+                        
+------------------------------------------------------------------------------
+               Data Structures for write()
+
+
+mywrite behaves exactly the same as Unix's write(fd, buf, nbytes) syscall.
+It writes nbytes from buf[ ] to the file descriptor fd, extending the file 
+size as needed.
+
+int mywrite(int fd, char buf[ ], int nbytes) 
+{
+  while (nbytes > 0 ){
+
+     compute LOGICAL BLOCK (lbk) and the startByte in that lbk:
+
+          lbk       = oftp->offset / BLKSIZE;
+          startByte = oftp->offset % BLKSIZE;
+
+    // I only show how to write DIRECT data blocks, you figure out how to 
+    // write indirect and double-indirect blocks.
+
+     if (lbk < 12){                         // direct block
+        if (ip->INODE.i_block[lbk] == 0){   // if no data block yet
+
+           mip->INODE.i_block[lbk] = balloc(mip->dev);// MUST ALLOCATE a block
+        }
+        blk = mip->INODE.i_block[lbk];      // blk should be a disk block now
+     }
+     else if (lbk >= 12 && lbk < 256 + 12){ // INDIRECT blocks 
+              // HELP INFO:
+              if (i_block[12] == 0){
+                  allocate a block for it;
+                  zero out the block on disk !!!!
+              }
+              get i_block[12] into an int ibuf[256];
+              blk = ibuf[lbk - 12];
+              if (blk==0){
+                 allocate a disk block;
+                 record it in i_block[12];
+              }
+              .......
+     }
+     else{
+            // double indirect blocks */
+     }
+
+     /* all cases come to here : write to the data block */
+     get_block(mip->dev, blk, wbuf);   // read disk block into wbuf[ ]  
+     char *cp = wbuf + startByte;      // cp points at startByte in wbuf[]
+     remain = BLKSIZE - startByte;     // number of BYTEs remain in this block
+
+     while (remain > 0){               // write as much as remain allows  
+           *cp++ = *cq++;              // cq points at buf[ ]
+           nbytes--; remain--;         // dec counts
+           oftp->offset++;             // advance offset
+           if (offset > INODE.i_size)  // especially for RW|APPEND mode
+               mip->INODE.i_size++;    // inc file size (if offset > fileSize)
+           if (nbytes <= 0) break;     // if already nbytes, break
+     }
+     put_block(mip->dev, blk, wbuf);   // write wbuf[ ] to disk
+     
+     // loop back to outer while to write more .... until nbytes are written
+  }
+
+  mip->dirty = 1;       // mark mip dirty for iput() 
+  printf("wrote %d char into file descriptor fd=%d\n", nbytes, fd);           
+  return nbytes;
+}
+
+
+                OPTIMIZATION OF write Code
+
+As in read(), the above inner while(remain > 0) loop can be optimized:
+Instead of copying one byte at a time and update the control variables on each 
+byte, TRY to copy only ONCE and adjust the control variables accordingly.
+
+REQUIRED: Optimize the write() code in your project.
+
+=============================================================================
+
+                      HOW TO cp ONE file:
+
+cp src dest:
+
+1. fd = open src for READ;
+
+2. gd = open dst for WR|CREAT; 
+
+   NOTE:In the project, you may have to creat the dst file first, then open it 
+        for WR, OR  if open fails due to no file yet, creat it and then open it
+        for WR.
+
+3. while( n=read(fd, buf[ ], BLKSIZE) ){
+       write(gd, buf, n);  // notice the n in write()
+   }
+
+==============================================================================
+
+                    HOW TO mv (rename)
+mv src dest:
+
+1. verify src exists; get its INODE in ==> you already know its dev
+2. check whether src is on the same dev as src
+
+              CASE 1: same dev:
+3. Hard link dst with src (i.e. same INODE number)
+4. unlink src (i.e. rm src name from its parent directory and reduce INODE's
+               link count by 1).
+                
+              CASE 2: not the same dev:
+3. cp src to dst
+4. unlink src
+        
+============ END OF large FILE ==================
+	
+cat 102423 bytes
+
+===============================
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : head small
+cmd=head pathname=small parameter=
+head of small
+fd=0 ----------------------------
+                   LAB2 Check List
+
+Use YOUR C program source file in the tests.
+
+// Simple commands
+ls -a -l                       : show the ls results of CWD
+cat file                       : show file contents
+
+// Choose gedit OR nano OR vi OR emacs as the EDITOR
+EDITOR file                    : show you can edit the file
+----------------------------
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : t 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : tail small
+cmd=tail pathname=small parameter=
+tail of small
+fd=0 mip=3 15
+fsize=3297 position=2273
+----------------------------
+ P1:                 show P1 childList as P2->P3->P4
+ P1: wait        ==> find ZOMBIE P2 and put it into freeList
+     wait        ==> P1 should sleep in wait(), until a child becomes ZOMBIE
+                    (P1 sleeps, not runable, so switch to P3)
+		  
+ P3: exit        ==> wakeup P1, which will FREE the ZOMBIE P3.
+
+sample solution: ~samples/LAB2pre/solution	       
+
+========== END OF small FILE =============
+----------------------------
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : cp large newlarge
+cmd=cp pathname=large parameter=newlarge
+mycp: fd=0 gd=1
+102423 bytes copied
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : ls
+cmd=ls pathname= parameter=
+ls ./
+i_block[0] = 276
+drwxr-xr-x   2   0   0  Apr 13 09:59:55 2023    1024    .	[3 2]
+drwxr-xr-x   2   0   0  Apr 13 09:59:55 2023    1024    ..	[3 2]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023       0    file1	[3 12]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023  442398    huge	[3 13]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023  102423    large	[3 14]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023    3297    small	[3 15]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023     104    tiny	[3 16]
+-rw-r--r--   1   0   0  Apr 17 13:50:44 2023  102423    newlarge	[3 11]
+******************************************************
+after ls : cwd = [3 2]
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : cp huge newhuge
+cmd=cp pathname=huge parameter=newhuge
+mycp: fd=0 gd=1
+442398 bytes copied
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : ls
+cmd=ls pathname= parameter=
+ls ./
+i_block[0] = 276
+drwxr-xr-x   2   0   0  Apr 13 09:59:55 2023    1024    .	[3 2]
+drwxr-xr-x   2   0   0  Apr 13 09:59:55 2023    1024    ..	[3 2]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023       0    file1	[3 12]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023  442398    huge	[3 13]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023  102423    large	[3 14]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023    3297    small	[3 15]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023     104    tiny	[3 16]
+-rw-r--r--   1   0   0  Apr 17 13:50:44 2023  102423    newlarge	[3 11]
+-rw-r--r--   1   0   0  Apr 17 13:50:53 2023  442398    newhuge	[3 17]
+******************************************************
+after ls : cwd = [3 2]
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : 
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : cp large newlarge
+cmd=cp pathname=large parameter=newlarge
+deallocate direct blocks
+277 278 279 280 281 282 283 284 285 286 287 288 
+---------------------------
+
+deallocate indirect block 293 : 294 295 296 297 298 299 300 301 302 303 304 305 306 307 308 309 310 311 312 313 314 315 316 317 318 319 320 353 354 355 356 357 358 359 360 361 362 363 364 365 366 367 368 513 514 515 516 517 518 519 520 521 522 523 524 525 526 527 528 529 530 531 532 533 534 535 536 537 538 539 540 541 542 543 544 545 546 547 548 549 550 551 552 553 554 555 556 557 558 
+---------------------------
+
+mycp: fd=0 gd=1
+102423 bytes copied
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : ls
+cmd=ls pathname= parameter=
+ls ./
+i_block[0] = 276
+drwxr-xr-x   2   0   0  Apr 13 09:59:55 2023    1024    .	[3 2]
+drwxr-xr-x   2   0   0  Apr 13 09:59:55 2023    1024    ..	[3 2]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023       0    file1	[3 12]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023  442398    huge	[3 13]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023  102423    large	[3 14]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023    3297    small	[3 15]
+-rw-r--r--   1   0   0  Apr 13 09:59:55 2023     104    tiny	[3 16]
+-rw-r--r--   1   0   0  Apr 17 13:50:44 2023  102423    newlarge	[3 11]
+-rw-r--r--   1   0   0  Apr 17 13:50:53 2023  442398    newhuge	[3 17]
+******************************************************
+after ls : cwd = [3 2]
+P1 running: command [ls|open|close|pfd|read|write|cat|cp|head|tail] : exit
+cmd=exit pathname= parameter=
+[?2004h]0;root@SL510: ~/360/sp23/proj/level2root@SL510:~/360/sp23/proj/level2# diff2
+[?2004ldiff large with newlarge
+diff huge with newhuge
+[?2004h]0;root@SL510: ~/360/sp23/proj/level2root@SL510:~/360/sp23/proj/level2# 
+[?2004l[?2004h]0;root@SL510: ~/360/sp23/proj/level2root@SL510:~/360/sp23/proj/level2# 
+[?2004l[?2004h]0;root@SL510: ~/360/sp23/proj/level2root@SL510:~/360/sp23/proj/level2# head_tail
+[?2004lLinux head /mnt/small
+--------------------------
+                   LAB2 Check List
+
+Use YOUR C program source file in the tests.
+
+// Simple commands
+ls -a -l                       : show the ls results of CWD
+cat file                       : show file contents
+
+// Choose gedit OR nano OR vi OR emacs as the EDITOR
+EDITOR file                    : show you can edit the file
+--------------------------
+Linux tail /mnt/small
+--------------------------
+ P1:                 show P1 childList as P2->P3->P4
+ P1: wait        ==> find ZOMBIE P2 and put it into freeList
+     wait        ==> P1 should sleep in wait(), until a child becomes ZOMBIE
+                    (P1 sleeps, not runable, so switch to P3)
+		  
+ P3: exit        ==> wakeup P1, which will FREE the ZOMBIE P3.
+
+sample solution: ~samples/LAB2pre/solution	       
+
+========== END OF small FILE =============
+--------------------------
+[?2004h]0;root@SL510: ~/360/sp23/proj/level2root@SL510:~/360/sp23/proj/level2# 
+[?2004l[?2004h]0;root@SL510: ~/360/sp23/proj/level2root@SL510:~/360/sp23/proj/level2# 
+[?2004l[?2004h]0;root@SL510: ~/360/sp23/proj/level2root@SL510:~/360/sp23/proj/level2# exit
+[?2004lexit
+
+Script done on 2023-04-17 13:51:40-07:00 [COMMAND_EXIT_CODE="0"]

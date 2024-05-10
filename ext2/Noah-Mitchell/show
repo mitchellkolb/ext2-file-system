@@ -1,0 +1,5 @@
+sudo mount disk2 /mnt
+
+sudo ls -l /mnt
+
+sudo umount /mnt

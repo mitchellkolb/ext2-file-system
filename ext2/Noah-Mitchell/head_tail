@@ -1,0 +1,13 @@
+sudo mount disk2 /mnt
+
+echo Linux head /mnt/small
+echo --------------------------
+sudo head /mnt/small
+echo --------------------------
+
+echo Linux tail /mnt/small
+echo --------------------------
+sudo tail /mnt/small
+echo --------------------------
+
+sudo umount /mnt

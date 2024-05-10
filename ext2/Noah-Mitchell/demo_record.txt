@@ -1,0 +1,44 @@
+
+NAME__Mitchell Kolb____ ID___11670080___  NAME___Noah Waxman___ ID___11666588___
+
+
+LEVEL-2: Use disk2: (file1, tiny, small, large, huge)        TA COMMENTS    
+
+------------------        ---------------------------   -----------------------
+cat large                 show file contents          ________________________10
+
+cat huge                  show file contents          ________________________10
+
+head small                show FIRST 10 lines of file ________________________10
+
+tail small                show LAST 10 lines of file  ________________________10
+
+cp large newlarge; ls     show they are SAME size     ________________________10
+
+cp huge  newhuge ; ls     show they are SAME size     ________________________20
+
+cp large newlarge      MUST truncate newlarge first  _________________________ 5
+
+------------------------------------------------------------------------------
+              MUST DO THIS: exit YOUR project 
+
+(In Linux): diff2         MUST not show any lines   __________________________20 
+
+(in Linux): head_tail     MUST be same as YOURs     ___________________________5
+
+============ DONE if you can do the above ============================ Total 100
+
+
+============ IF can not do cat, cp: TRY to do these for LEVEL2 ===============
+
+open  small 0;   pfd      show fd=0 opened for R      ________________________10
+
+read 0 20;       pfd      show 20 chars read          ________________________10
+
+open file1 1;    pfd      show fd=1 opened for W      ________________________10
+
+write 1 "abcde"; ls       show file1 size=5           ________________________10
+
+close 1; pfd              show fd=1 is closed         ________________________10
+                                                                      Total   50
+==============================================================================

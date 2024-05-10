@@ -1,0 +1,9 @@
+
+
+
+./mkdisk
+rm a.out
+clear
+gcc main.c
+clear
+./a.out
