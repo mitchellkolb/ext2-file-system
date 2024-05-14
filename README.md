@@ -4,13 +4,13 @@
 <h1 align="center">Ext2 File System</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/Mitchell-kolb/ext2-file-system?color=56BEB8">
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/mitchellkolb/ext2-file-system?color=56BEB8">
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/Mitchell-kolb/ext2-file-system?color=56BEB8">
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/mitchellkolb/ext2-file-system?color=56BEB8">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Mitchell-kolb/ext2-file-system?color=56BEB8">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/mitchellkolb/ext2-file-system?color=56BEB8">
 
-  <img alt="Github stars" src="https://img.shields.io/github/stars/Mitchell-kolb/ext2-file-system?color=56BEB8" />
+  <img alt="Github stars" src="https://img.shields.io/github/stars/mitchellkolb/ext2-file-system?color=56BEB8" />
 </p>
 
 
