@@ -13,16 +13,18 @@
   <img alt="Github stars" src="https://img.shields.io/github/stars/mitchellkolb/ext2-file-system?color=56BEB8" />
 </p>
 
+<p align="center">
+    <img
+        src="https://img.shields.io/badge/Programming Language-%2300599b?style=for-the-badge&logo=C&logoColor=white"
+        alt="Website Badge" />
+    <img
+        src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=Linux&logoColor=black"
+        alt="Website Badge" />
+    <img
+        src="https://img.shields.io/badge/Ext2 File System-558c5d?style=for-the-badge&logo=Educative&logoColor=white"
+        alt="Website Badge" />
 
-<img
-    src="https://img.shields.io/badge/Programming Language-%2300599b?style=for-the-badge&logo=C&logoColor=white"
-    alt="Website Badge" />
-<img
-    src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=Linux&logoColor=black"
-    alt="Website Badge" />
-<img
-    src="https://img.shields.io/badge/Ext2 File System-558c5d?style=for-the-badge&logo=Educative&logoColor=white"
-    alt="Website Badge" />
+</p>
 
 This project is intended to be a totally Linux-compatible ext2 file system.
 The project deliverables were comprised of two primary sections. The first level
