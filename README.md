@@ -49,7 +49,7 @@ focuses on implementing read and write operations of file contents.
 
 # Team / Contributors / Teachers
 
-- Mitchell Kolb
+- [Mitchell Kolb](https://github.com/mitchellkolb)
 - [Noah Waxman](https://github.com/noah-waxman)
 - Professor. K.C. Wang
 - [Logan Kloft](https://github.com/LoganKloft) (Teachers Assistant)
