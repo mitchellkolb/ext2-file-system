@@ -4,13 +4,13 @@
 <h1 align="center">Ext2 File System</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/mitchellkolb/ext2-file-system?color=56BEB8">
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/mitchellkolb/ext2-file-system?color=558c5d">
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/mitchellkolb/ext2-file-system?color=56BEB8">
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/mitchellkolb/ext2-file-system?color=558c5d">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/mitchellkolb/ext2-file-system?color=56BEB8">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/mitchellkolb/ext2-file-system?color=558c5d">
 
-  <img alt="Github stars" src="https://img.shields.io/github/stars/mitchellkolb/ext2-file-system?color=56BEB8" />
+  <img alt="Github stars" src="https://img.shields.io/github/stars/mitchellkolb/ext2-file-system?color=558c5d" />
 </p>
 
 <p align="center">
@@ -26,12 +26,9 @@
 
 </p>
 
-This project is intended to be a totally Linux-compatible ext2 file system.
-The project deliverables were comprised of two primary sections. The first level
-was expanding the base file system to implement the file system tree. Second level
-focuses on implementing read and write operations of file contents.
+This project is intended to be a totally Linux-compatible ext2 file system. The project deliverables were comprised of two primary sections. The first level was expanding the base file system to implement the file system tree. Second level focuses on implementing read and write operations of file contents.
 
-![ext2-examplt-gif](resources/360-gif.gif)
+![ext2-examplt-gif](resources/360-gif-2.gif)
 
 # Tools Used in this Project
 
@@ -268,3 +265,8 @@ Focuses on read and write operations of files
         </tr>        
     </tbody>
 </table>
+
+
+--- 
+# Acknowledgments
+This codebase and all supporting materials was made as apart of a course for my undergrad at WSU for CPTS 360 - Systems Programming C/C++ in the Spring of 2023. This project was originally submitted to a private repository as all WSU assignments are, that has forking disabled. This repository serves as a backup place to showcase this project. The original repo is [linked here.](https://github.com/CPTS-360-SPRING-2023/lab5-Mitchell-kolb/tree/main)
