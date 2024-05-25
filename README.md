@@ -30,6 +30,14 @@ This project is intended to be a totally Linux-compatible ext2 file system. The 
 
 ![ext2-examplt-gif](resources/360-gif-2.gif)
 
+<details>
+<summary>Watch the Full Video Demo Here</summary>
+
+[![Full Video Demo Here](https://img.youtube.com/vi/L8SBFNDYORU/0.jpg)](https://www.youtube.com/watch?v=L8SBFNDYORU)
+
+</details>
+
+
 # Tools Used in this Project
 
 - C programming language
