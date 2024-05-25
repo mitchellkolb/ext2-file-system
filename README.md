@@ -37,7 +37,7 @@ This project is intended to be a totally Linux-compatible ext2 file system. The 
 
 </details>
 
-
+---
 # Tools Used in this Project
 
 - C programming language
