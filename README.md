@@ -26,7 +26,7 @@
 
 </p>
 
-This project is intended to be a totally Linux-compatible ext2 file system. The project deliverables were comprised of two primary sections. The first level was expanding the base file system to implement the file system tree. Second level focuses on implementing read and write operations of file contents.
+This project is intended to be a  Linux-compatible ext2 file system. The project deliverables were comprised of two primary sections. The first level was expanding the base file system to implement the file system tree. Second level focuses on implementing read and write operations of file contents.
 
 ![ext2-examplt-gif](resources/360-gif-2.gif)
 
@@ -37,7 +37,28 @@ This project is intended to be a totally Linux-compatible ext2 file system. The 
 
 </details>
 
+
 ---
+
+## Table of Contents
+- [What I Learned](#what-i-learned-in-this-project)
+- [Tools Used in this Project](#tools-used-in-this-project)
+- [Development Environment](#development-environment)
+- [Team / Contributors / Teachers](#team--contributors--teachers)
+- [How to Set Up](#how-to-set-up)
+- [Commands Implemented](#commands-implemented)
+    - [Level 1](#level-1)
+    - [Level 2](#level-2)
+- [Acknowledgments](#acknowledgments)
+
+---
+
+# What I Learned in this Project
+- Extreme detail of the Linux Ext2 File System
+- Techniques for programming in C using data structures and file operations
+- How to create and use shell scripts and virtual disks
+- What all these topics are: Inodes, MBR (Master Boot Record), Super Block, Group/File Descriptor, Bitmap, Indirect Blocks, Forks/Pipes, and Mailman's Algorithm.
+
 # Tools Used in this Project
 
 - C programming language
