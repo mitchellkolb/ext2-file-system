@@ -40,7 +40,7 @@ This project is intended to be a  Linux-compatible ext2 file system. The project
 
 ---
 
-## Table of Contents
+# Table of Contents
 - [What I Learned](#what-i-learned-in-this-project)
 - [Tools Used in this Project](#tools-used-in-this-project)
 - [Development Environment](#development-environment)
