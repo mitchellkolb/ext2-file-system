@@ -26,7 +26,7 @@
 
 </p>
 
-This project is intended to be a  Linux-compatible ext2 file system. The project deliverables were comprised of two primary sections. The first level was expanding the base file system to implement the file system tree. Second level focuses on implementing read and write operations of file contents.
+This project is a  Linux-compatible ext2 file system. The project deliverables were comprised of two primary sections. The first level was expanding the base file system to implement the file system tree. Second level focuses on implementing read and write operations of file contents.
 
 ![ext2-examplt-gif](resources/360-gif-2.gif)
 
