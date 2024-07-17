@@ -86,8 +86,11 @@ This project was implemented on our local machine inside of a virtual machine us
 
 - Ubuntu Version 20.04.03 found at this [link](http://lt.releases.ubuntu.com/20.04.3/).
 - Clone this repository 
-- Open terminal at the codebase `~.../ext2/Noah-Mitchell/`
-- Run our `mk` file to create a new disk image, and then start up the file system with that new disk image mounted.
+- Open terminal at the codebase `~.../ext2-file-system/Noah-Mitchell/`
+- Run our `mk` file which creates a new disk image, and then start up the file system with that new disk image mounted. Use this command:
+```zsh
+./mk
+```
 - The Ext2 File System will begin running in your terminal. 
 
 
